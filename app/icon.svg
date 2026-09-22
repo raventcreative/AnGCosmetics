@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="A&amp;G Cosmetics">
+  <g fill="#F09DBB">
+    <circle cx="32" cy="8" r="9"/><circle cx="50" cy="14" r="9"/><circle cx="56" cy="32" r="9"/>
+    <circle cx="50" cy="50" r="9"/><circle cx="32" cy="56" r="9"/><circle cx="14" cy="50" r="9"/>
+    <circle cx="8" cy="32" r="9"/><circle cx="14" cy="14" r="9"/><circle cx="32" cy="32" r="22"/>
+  </g>
+  <text x="32" y="40" text-anchor="middle" font-family="Georgia, 'Bodoni Moda', serif" font-size="22" fill="#3B2E30">A&amp;G</text>
+</svg>

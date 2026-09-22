@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   A&G Cosmetics — Design System "Garden Blossom" v1.0
+   Token diambil langsung dari design_system_ang_cosmetics.pdf (02 · Foundations)
+   ========================================================================== */
+@theme {
+  /* --- Warna ------------------------------------------------------------ */
+  --color-blossom-pink: #f09dbb; /* signature, bidang besar, badge bunga */
+  --color-blossom-deep: #a9436c; /* SATU-SATUNYA warna aksi (versi web AA) */
+  --color-blossom-guide: #c2577f; /* versi brand guideline, dekoratif saja */
+  --color-cotton-pink: #f4c3d1; /* tint lembut: chip, badge, hover */
+  --color-sage: #9eb79b; /* aksen daun, ikon, garis — bukan teks */
+  --color-sage-deep: #5f7a5c; /* versi teks dari sage */
+  --color-butter-cream: #fbf8ce; /* background section selang-seling */
+  --color-ivory: #fffdf6; /* background halaman */
+  --color-white: #ffffff; /* background SEMUA card & input */
+  --color-cocoa: #3b2e30; /* ink utama, semua teks baca */
+  --color-cocoa-soft: #6e5e60; /* teks sekunder, caption, BPOM */
+  --color-line: #efe6da; /* border card, divider, outline input */
+  --color-success: #4e7d55;
+  --color-warning: #a8652a;
+  --color-error: #b3362f;
+
+  /* --- Tipografi -------------------------------------------------------- */
+  --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
+  --font-sans: var(--font-nunito), "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-logo: var(--font-bodoni), "Bodoni Moda", Didot, Georgia, serif;
+
+  --text-display-xl: 56px;
+  --text-display-xl--line-height: 60px;
+  --text-display-xl--font-weight: 400;
+  --text-display-l: 40px;
+  --text-display-l--line-height: 46px;
+  --text-display-l--font-weight: 400;
+  --text-heading-1: 32px;
+  --text-heading-1--line-height: 38px;
+  --text-heading-1--font-weight: 400;
+  --text-heading-2: 24px;
+  --text-heading-2--line-height: 30px;
+  --text-heading-2--font-weight: 600;
+  --text-tagline: 22px;
+  --text-tagline--line-height: 28px;
+  --text-tagline--font-weight: 400;
+  --text-title: 18px;
+  --text-title--line-height: 26px;
+  --text-title--font-weight: 600;
+  --text-body: 16px;
+  --text-body--line-height: 26px;
+  --text-body--font-weight: 400;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 22px;
+  --text-body-sm--font-weight: 400;
+  --text-price: 18px;
+  --text-price--line-height: 24px;
+  --text-price--font-weight: 600;
+  --text-button: 15px;
+  --text-button--line-height: 20px;
+  --text-button--font-weight: 600;
+  --text-caption: 12px;
+  --text-caption--line-height: 18px;
+  --text-caption--font-weight: 400;
+  --text-label: 11px;
+  --text-label--line-height: 16px;
+  --text-label--font-weight: 600;
+  --text-label--letter-spacing: 0.12em;
+
+  /* --- Radius ----------------------------------------------------------- */
+  --radius-sm: 8px; /* input, thumbnail kecil, toast */
+  --radius-md: 12px; /* dropdown, mega menu, card kecil */
+  --radius-lg: 20px; /* product card, modal, banner */
+  --radius-xl: 28px; /* hero image, template feed */
+
+  /* --- Shadow ----------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(59, 46, 48, 0.06), 0 2px 6px rgba(59, 46, 48, 0.05);
+  --shadow-md: 0 6px 18px rgba(169, 67, 108, 0.1);
+  --shadow-lg: 0 18px 48px rgba(59, 46, 48, 0.16);
+
+  /* --- Breakpoint (mobile-first) ---------------------------------------- */
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1200px;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-cocoa);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+  }
+
+  /* Focus ring memakai alias blossom-deep (2px, offset 2px) */
+  :focus-visible {
+    outline: 2px solid var(--color-blossom-deep);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  ::selection {
+    background-color: var(--color-cotton-pink);
+    color: var(--color-cocoa);
+  }
+}
+
+/* ==========================================================================
+   Utility milik brand
+   ========================================================================== */
+@utility container-ag {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  @media (width >= 768px) {
+    padding-inline: 24px;
+  }
+  @media (width >= 1200px) {
+    padding-inline: 32px;
+  }
+}
+
+/* Jarak antar section: 48px mobile, 64px desktop */
+@utility section-y {
+  padding-block: 48px;
+  @media (width >= 1200px) {
+    padding-block: 64px;
+  }
+}
+
+/* Satu kata aksen italic blossom-deep per headline */
+@utility accent {
+  font-style: italic;
+  color: var(--color-blossom-deep);
+}
+
+/* Badge bunga scallop — latar produk & sticker diskon */
+@utility flower-badge {
+  clip-path: polygon(
+    50% 0%, 61% 8%, 74% 5%, 82% 15%, 94% 18%, 96% 31%, 100% 42%, 95% 53%,
+    99% 65%, 90% 73%, 88% 86%, 75% 89%, 65% 97%, 52% 94%, 40% 99%, 30% 91%,
+    17% 90%, 11% 78%, 2% 70%, 5% 57%, 0% 45%, 6% 33%, 4% 20%, 16% 15%,
+    24% 5%, 37% 7%
+  );
+}
+
+/* Container query helper untuk template social media */
+@utility cq {
+  container-type: inline-size;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
