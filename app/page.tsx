@@ -9,21 +9,13 @@ import { TrustStrip } from "@/components/home/TrustStrip";
 import { RoutineSteps } from "@/components/home/RoutineSteps";
 import { UGCReviews } from "@/components/home/UGCReviews";
 import { ValuesTrio } from "@/components/home/ValuesTrio";
-import { ResellerBanner } from "@/components/home/ResellerBanner";
 import { SocialGrid } from "@/components/home/SocialGrid";
 import { SectionHeading } from "@/components/layout/SectionHeading";
-import { ProductGrid } from "@/components/commerce/ProductCard";
-import { IngredientsSection } from "@/components/content/IngredientsSection";
-import { BlogCard } from "@/components/content/BlogCard";
 import { Button } from "@/components/ui/Button";
 import { ArrowIcon } from "@/components/ui/Icons";
-import { categories, getProduct, products } from "@/lib/data/products";
-import { articles } from "@/lib/data/journal";
+import { categories, products } from "@/lib/data/products";
 
 export default function HomePage() {
-  const bestSellers = products.filter((p) => p.bestSeller).slice(0, 4);
-  const serum = getProduct("pdrn-booster-body-serum");
-
   return (
     <>
       <HeroEditorial />
@@ -82,59 +74,11 @@ export default function HomePage() {
 
       <FullBleedStory />
 
-      {/* Best seller */}
-      <section className="section-y">
-        <div className="container-ag flex flex-col gap-10">
-          <SectionHeading
-            eyebrow="Paling dicari"
-            title="Yang bestie borong"
-            accent="terus"
-            action={
-              <Button href="/produk" variant="secondary" size="sm">
-                Semua produk
-              </Button>
-            }
-          />
-          <ProductGrid products={bestSellers} />
-        </div>
-      </section>
-
       <RoutineSteps />
-
-      {serum && (
-        <IngredientsSection
-          ingredients={serum.ingredients}
-          title="Kandungan yang kami tulis"
-          accent="terbuka"
-          desc="Contoh dari PDRN Booster Body Serum. Kadar setiap bahan aktif kami cantumkan sesuai komposisi resmi yang terdaftar di BPOM."
-        />
-      )}
 
       <UGCReviews />
       <ValuesTrio />
 
-      {/* Journal */}
-      <section className="section-y">
-        <div className="container-ag flex flex-col gap-10">
-          <SectionHeading
-            eyebrow="Bestie Journal"
-            title="Belajar dulu, belanja"
-            accent="kemudian"
-            action={
-              <Button href="/journal" variant="secondary" size="sm">
-                Semua artikel
-              </Button>
-            }
-          />
-          <div className="grid gap-8 tablet:grid-cols-3 tablet:gap-6">
-            {articles.slice(0, 3).map((a) => (
-              <BlogCard key={a.slug} article={a} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <ResellerBanner />
       <SocialGrid />
     </>
   );
