@@ -1,75 +1,86 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Badge } from "@/components/ui/Badge";
 import { Rating } from "@/components/ui/Rating";
-import { CartIcon } from "@/components/ui/Icons";
 import type { Product } from "@/lib/data/products";
 import { site } from "@/lib/site";
-import { rupiah } from "@/lib/utils";
+import { cn, rupiah } from "@/lib/utils";
 
 /**
- * Card dan area foto berlatar white dengan divider line. Produk utuh, label terbaca.
- * Maksimal satu badge promo. Grid: 2 kolom mobile, 3 tablet, 4 desktop.
+ * Product card tanpa kotak: foto duduk di tile mist, teks mengalir di atas putih.
+ * Produk tampil utuh dan label kemasan tetap terbaca. Maksimal satu penanda.
  */
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product, className }: { product: Product; className?: string }) {
   const badge = product.bestSeller ? "Best seller" : product.isNew ? "Baru" : null;
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-lg border border-line bg-white transition hover:shadow-md">
-      <Link href={`/produk/${product.slug}`} className="relative block border-b border-line p-4">
+    <article className={cn("group flex flex-col", className)}>
+      <Link
+        href={`/produk/${product.slug}`}
+        className="relative block aspect-square overflow-hidden bg-mist"
+      >
         {badge && (
-          <Badge tone="promo" className="absolute left-3 top-3 z-10">
+          <span className="absolute left-3 top-3 z-10 bg-paper px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-cocoa">
             {badge}
-          </Badge>
+          </span>
         )}
         <Image
           src={product.image}
           alt={product.name}
           width={700}
           height={700}
-          className="mx-auto aspect-square w-full max-w-[220px] object-contain transition duration-300 group-hover:scale-[1.03]"
+          className="size-full scale-[0.82] object-contain transition duration-700 group-hover:scale-[0.88]"
         />
       </Link>
 
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <p className="text-label uppercase tracking-[0.12em] text-cocoa-soft">
+      <div className="flex flex-1 flex-col gap-1.5 pt-4">
+        <p className="text-nav uppercase text-cocoa-soft">
           {product.type} · {product.size}
         </p>
-        <h3 className="text-title font-sans text-cocoa">
-          <Link href={`/produk/${product.slug}`} className="hover:text-blossom-deep">
+        <h3 className="font-sans text-title text-cocoa">
+          <Link href={`/produk/${product.slug}`} className="transition hover:text-blossom-deep">
             {product.name}
           </Link>
         </h3>
         <Rating value={product.rating} count={product.reviewCount} />
-        <p className="mt-auto flex items-baseline gap-2 pt-2">
-          <span className="text-price text-blossom-deep">{rupiah(product.price)}</span>
-        </p>
-        <div className="flex flex-col gap-2 tablet:flex-row tablet:items-center">
+        <p className="mt-1 text-price text-blossom-deep">{rupiah(product.price)}</p>
+
+        <div className="mt-3 flex items-center gap-4">
           <a
             href={site.marketplace.shopee}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-11 items-center justify-center gap-2 rounded-full bg-blossom-deep text-button font-semibold text-ivory transition hover:bg-[#93395d] tablet:flex-1"
+            className="flex h-10 flex-1 items-center justify-center bg-cocoa text-button font-semibold text-ivory transition hover:bg-blossom-deep"
           >
-            <CartIcon width={18} height={18} />
             Beli
           </a>
           <Link
             href={`/produk/${product.slug}`}
-            className="flex h-11 items-center justify-center rounded-full border border-blossom-deep px-4 text-button font-semibold text-blossom-deep transition hover:bg-cotton-pink/40"
+            className="text-body-sm text-cocoa-soft underline-offset-4 transition hover:text-blossom-deep hover:underline"
           >
             Detail
           </Link>
         </div>
-        <p className="text-caption text-cocoa-soft">POM {product.pom}</p>
+
+        <p className="pt-2 text-caption text-cocoa-soft">POM {product.pom}</p>
       </div>
     </article>
   );
 }
 
-export function ProductGrid({ products }: { products: Product[] }) {
+export function ProductGrid({
+  products,
+  className,
+}: {
+  products: Product[];
+  className?: string;
+}) {
   return (
-    <div className="grid grid-cols-2 gap-4 tablet:grid-cols-3 tablet:gap-6 desktop:grid-cols-4">
+    <div
+      className={cn(
+        "grid grid-cols-2 gap-x-4 gap-y-10 tablet:grid-cols-3 tablet:gap-x-6 desktop:grid-cols-4 desktop:gap-x-8",
+        className,
+      )}
+    >
       {products.map((p) => (
         <ProductCard key={p.slug} product={p} />
       ))}

@@ -25,10 +25,10 @@ export function CheckoutSummary() {
   const total = subtotal + shipping - discount;
 
   return (
-    <div className="rounded-lg border border-line bg-white p-6 shadow-sm">
+    <div className="border border-hairline bg-paper p-6 shadow-sm">
       <h3 className="font-display text-heading-2">Ringkasan pesanan</h3>
 
-      <ul className="mt-4 divide-y divide-line">
+      <ul className="mt-4 divide-y divide-hairline">
         {lines.map((l) => (
           <li key={l.product.slug} className="flex items-start justify-between gap-3 py-3">
             <span className="text-body-sm text-cocoa">
@@ -65,7 +65,7 @@ export function CheckoutSummary() {
         </Button>
       </form>
 
-      <dl className="mt-5 flex flex-col gap-2 border-t border-line pt-4 text-body-sm">
+      <dl className="mt-5 flex flex-col gap-2 border-t border-hairline pt-4 text-body-sm">
         <div className="flex justify-between">
           <dt className="text-cocoa-soft">Subtotal</dt>
           <dd className="text-cocoa">{rupiah(subtotal)}</dd>
@@ -82,7 +82,7 @@ export function CheckoutSummary() {
         )}
       </dl>
 
-      <div className="mt-4 flex items-baseline justify-between border-t border-line pt-4">
+      <div className="mt-4 flex items-baseline justify-between border-t border-hairline pt-4">
         <span className="text-body font-semibold text-cocoa">Total</span>
         <span className="text-heading-2 font-semibold text-blossom-deep">{rupiah(total)}</span>
       </div>
@@ -92,7 +92,7 @@ export function CheckoutSummary() {
         {["Transfer bank", "QRIS", "COD lewat marketplace"].map((method, i) => (
           <label
             key={method}
-            className="flex h-11 cursor-pointer items-center gap-3 rounded-sm border border-line px-4 text-body-sm has-checked:border-blossom-deep has-checked:bg-cotton-pink/30"
+            className="flex h-11 cursor-pointer items-center gap-3 rounded-sm border border-hairline px-4 text-body-sm has-checked:border-blossom-deep has-checked:bg-cotton-pink/30"
           >
             <input
               type="radio"

@@ -40,7 +40,7 @@ export default function BrandGuidelinePage() {
   return (
     <>
       {/* Cover */}
-      <section className="relative overflow-hidden border-b border-line bg-cotton-pink/40">
+      <section className="relative overflow-hidden border-b border-hairline bg-mist">
         <SageLeaf className="absolute -right-6 bottom-0 w-52 opacity-60" />
         <div className="container-ag relative flex flex-col gap-6 py-16 desktop:py-24">
           <p className="text-label uppercase tracking-[0.12em] text-blossom-deep">
@@ -75,7 +75,7 @@ export default function BrandGuidelinePage() {
           <SectionHeading eyebrow="01 · Brand" title="Tentang" accent="A&G" />
           <div className="grid gap-6 desktop:grid-cols-[1.2fr_0.8fr]">
             <p className="text-body text-cocoa">{brandAbout.text}</p>
-            <div className="rounded-lg border border-line bg-white p-6">
+            <div className="border border-hairline bg-paper p-6">
               <p className="text-label uppercase tracking-[0.12em] text-sage-deep">
                 Karakter brand
               </p>
@@ -96,7 +96,7 @@ export default function BrandGuidelinePage() {
           </div>
 
           <div className="grid gap-6 desktop:grid-cols-2">
-            <div className="rounded-lg border border-line bg-white p-6">
+            <div className="border border-hairline bg-paper p-6">
               <p className="text-label uppercase tracking-[0.12em] text-sage-deep">Voice & tone</p>
               <ul className="mt-3 flex flex-col gap-2">
                 {voiceRules.map((rule) => (
@@ -125,31 +125,31 @@ export default function BrandGuidelinePage() {
       </section>
 
       {/* 02 Logo */}
-      <section id="logo" className="bg-butter-cream section-y scroll-mt-28">
+      <section id="logo" className="bg-mist section-y scroll-mt-28">
         <div className="container-ag flex flex-col gap-8">
           <SectionHeading eyebrow="02 · Logo" title="Logo &" accent="penggunaannya" desc={logoRules.desc} />
 
           <div className="grid gap-4 tablet:grid-cols-2 desktop:grid-cols-4">
-            <div className="flex aspect-4/3 flex-col items-center justify-center gap-3 rounded-lg border border-line bg-white">
+            <div className="flex aspect-4/3 flex-col items-center justify-center gap-3 border border-hairline bg-paper">
               <Logo />
               <p className="text-caption text-cocoa-soft">Primary · utama</p>
             </div>
-            <div className="flex aspect-4/3 flex-col items-center justify-center gap-3 rounded-lg border border-line bg-white">
+            <div className="flex aspect-4/3 flex-col items-center justify-center gap-3 border border-hairline bg-paper">
               <Logo descriptor={false} />
               <p className="text-caption text-cocoa-soft">Wordmark · ruang sempit</p>
             </div>
-            <div className="flex aspect-4/3 flex-col items-center justify-center gap-3 rounded-lg border border-line bg-blossom-pink">
+            <div className="flex aspect-4/3 flex-col items-center justify-center gap-3 rounded-lg border border-hairline bg-blossom-pink">
               <Logo tone="cocoa" />
               <p className="text-caption text-cocoa">Di atas warna brand</p>
             </div>
-            <div className="flex aspect-4/3 flex-col items-center justify-center gap-3 rounded-lg border border-line bg-cocoa">
+            <div className="flex aspect-4/3 flex-col items-center justify-center gap-3 rounded-lg border border-hairline bg-cocoa">
               <Logo tone="ivory" />
               <p className="text-caption text-ivory/70">Diapositif · latar gelap</p>
             </div>
           </div>
 
           <div className="grid gap-6 desktop:grid-cols-2">
-            <div className="rounded-lg border border-line bg-white p-6">
+            <div className="border border-hairline bg-paper p-6">
               <p className="text-label uppercase tracking-[0.12em] text-success">Aturan wajib</p>
               <ul className="mt-3 flex flex-col gap-2">
                 {logoRules.must.map((rule) => (
@@ -162,7 +162,7 @@ export default function BrandGuidelinePage() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-lg border border-line bg-white p-6">
+            <div className="border border-hairline bg-paper p-6">
               <p className="text-label uppercase tracking-[0.12em] text-error">Jangan dilakukan</p>
               <ul className="mt-3 flex flex-col gap-2">
                 {logoRules.never.map((rule) => (
@@ -193,7 +193,7 @@ export default function BrandGuidelinePage() {
             desc="Proporsi dalam satu layout: 60% ivory dan butter-cream, 25% blossom dan cotton pink, 10% cocoa, 5% blossom-deep dan sage."
           />
 
-          <div className="overflow-hidden rounded-full border border-line">
+          <div className="overflow-hidden rounded-full border border-hairline">
             <div className="flex h-10">
               {colorProportion.map((p) => (
                 <div
@@ -219,7 +219,7 @@ export default function BrandGuidelinePage() {
 
           <div className="grid gap-4 tablet:grid-cols-2 desktop:grid-cols-3">
             {colorTokens.slice(0, 11).map((c) => (
-              <div key={c.token} className="overflow-hidden rounded-lg border border-line bg-white">
+              <div key={c.token} className="overflow-hidden border border-hairline bg-paper">
                 <div className={`${c.class} ${c.text} flex h-24 items-end p-4`}>
                   <span className="text-caption font-semibold">{c.hex}</span>
                 </div>
@@ -239,7 +239,7 @@ export default function BrandGuidelinePage() {
       </section>
 
       {/* 04 Tipografi */}
-      <section id="tipografi" className="bg-butter-cream section-y scroll-mt-28">
+      <section id="tipografi" className="bg-mist section-y scroll-mt-28">
         <div className="container-ag flex flex-col gap-8">
           <SectionHeading
             eyebrow="04 · Foundations"
@@ -251,7 +251,7 @@ export default function BrandGuidelinePage() {
             {typeScale.slice(0, 6).map((t) => (
               <div
                 key={t.style}
-                className="flex flex-col gap-2 rounded-lg border border-line bg-white p-6 desktop:flex-row desktop:items-center desktop:justify-between"
+                className="flex flex-col gap-2 border border-hairline bg-paper p-6 desktop:flex-row desktop:items-center desktop:justify-between"
               >
                 <p className={`${t.class} text-cocoa`}>{t.sample}</p>
                 <div className="shrink-0 desktop:text-right">
@@ -261,7 +261,7 @@ export default function BrandGuidelinePage() {
               </div>
             ))}
           </div>
-          <div className="rounded-lg border border-line bg-white p-6">
+          <div className="border border-hairline bg-paper p-6">
             <p className="text-label uppercase tracking-[0.12em] text-sage-deep">
               Karakter Nunito
             </p>
@@ -282,19 +282,19 @@ export default function BrandGuidelinePage() {
           <SectionHeading eyebrow="05 · Elemen grafis" title="Bunga, daun," accent="tangkai" />
           <div className="grid gap-6 desktop:grid-cols-[1fr_1fr]">
             <div className="grid gap-4 tablet:grid-cols-3">
-              <div className="flex aspect-square items-center justify-center rounded-lg border border-line bg-white p-4">
+              <div className="flex aspect-square items-center justify-center border border-hairline bg-paper p-4">
                 <FlowerBadge className="size-28" />
               </div>
-              <div className="flex aspect-square items-center justify-center rounded-lg border border-line bg-white p-4">
+              <div className="flex aspect-square items-center justify-center border border-hairline bg-paper p-4">
                 <FlowerBadge color="cotton" className="size-28" />
               </div>
-              <div className="flex aspect-square items-center justify-center rounded-lg border border-line bg-white p-4">
+              <div className="flex aspect-square items-center justify-center border border-hairline bg-paper p-4">
                 <SageLeaf className="w-24" />
               </div>
             </div>
             <ul className="flex flex-col gap-4">
               {graphicElements.map((el) => (
-                <li key={el.title} className="rounded-lg border border-line bg-white p-6">
+                <li key={el.title} className="border border-hairline bg-paper p-6">
                   <p className="text-title text-cocoa">{el.title}</p>
                   <p className="mt-1 text-body-sm text-cocoa-soft">{el.desc}</p>
                 </li>
@@ -318,7 +318,7 @@ export default function BrandGuidelinePage() {
       </section>
 
       {/* 06 Penerapan */}
-      <section id="penerapan" className="bg-cotton-pink/40 section-y scroll-mt-28">
+      <section id="penerapan" className="bg-mist section-y scroll-mt-28">
         <div className="container-ag flex flex-col gap-8">
           <SectionHeading
             eyebrow="06 · Penerapan"
@@ -326,11 +326,11 @@ export default function BrandGuidelinePage() {
             accent="kemasan"
           />
 
-          <div className="overflow-hidden rounded-lg border border-line bg-white">
+          <div className="overflow-hidden border border-hairline bg-paper">
             <table className="w-full text-left">
               <caption className="sr-only">Ukuran dan aturan aset sosial media</caption>
               <thead>
-                <tr className="border-b border-line bg-cotton-pink/30">
+                <tr className="border-b border-hairline bg-cotton-pink/30">
                   <th scope="col" className="p-4 text-label uppercase tracking-[0.12em]">Aset</th>
                   <th scope="col" className="p-4 text-label uppercase tracking-[0.12em]">Ukuran</th>
                   <th scope="col" className="p-4 text-label uppercase tracking-[0.12em]">Aturan</th>
@@ -338,7 +338,7 @@ export default function BrandGuidelinePage() {
               </thead>
               <tbody>
                 {socialAssets.map((a) => (
-                  <tr key={a.asset} className="border-b border-line last:border-0">
+                  <tr key={a.asset} className="border-b border-hairline last:border-0">
                     <th scope="row" className="p-4 text-body-sm font-semibold text-cocoa">
                       {a.asset}
                     </th>
@@ -357,7 +357,7 @@ export default function BrandGuidelinePage() {
             <StoryTemplate />
           </div>
 
-          <div className="rounded-lg border border-line bg-white p-6">
+          <div className="border border-hairline bg-paper p-6">
             <p className="text-label uppercase tracking-[0.12em] text-sage-deep">Kemasan</p>
             <ul className="mt-3 grid gap-2 tablet:grid-cols-2">
               {packagingRules.map((rule) => (
@@ -367,6 +367,17 @@ export default function BrandGuidelinePage() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          <div className="border border-hairline bg-paper p-6">
+            <p className="text-nav uppercase text-blossom-deep">Catatan penerapan web</p>
+            <p className="mt-2 max-w-[70ch] text-body-sm text-cocoa-soft">
+              Website A&amp;G memakai turunan bernama <strong className="font-semibold text-cocoa">Quiet Blossom</strong>:
+              background putih, pink turun menjadi aksen, dan sudut siku untuk permukaan serta tombol.
+              Aturan di halaman ini — proporsi warna 60/25/10/5, radius pill, dan bidang cotton-pink —
+              tetap berlaku penuh untuk kemasan, social media, dan marketplace. Rinciannya ada di
+              design system.
+            </p>
           </div>
 
           <div className="flex flex-col gap-3 tablet:flex-row">

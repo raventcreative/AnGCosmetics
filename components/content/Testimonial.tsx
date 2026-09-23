@@ -11,7 +11,7 @@ import { testimonials } from "@/lib/data/testimonials";
  */
 export function Testimonial() {
   return (
-    <section className="relative overflow-hidden bg-cotton-pink/60 section-y">
+    <section className="relative overflow-hidden bg-mist section-y">
       <FlowerBadge
         color="cotton"
         className="pointer-events-none absolute -right-16 -top-16 size-56 opacity-70"
@@ -25,7 +25,7 @@ export function Testimonial() {
         />
         <ul className="grid gap-4 tablet:grid-cols-3 tablet:gap-6">
           {testimonials.map((t) => (
-            <li key={t.name} className="flex flex-col gap-4 rounded-lg border border-line bg-white p-6">
+            <li key={t.name} className="flex flex-col gap-4 border border-hairline bg-paper p-6">
               <p className="font-display text-[18px] italic leading-7 text-cocoa">
                 &ldquo;{t.quote}&rdquo;
               </p>

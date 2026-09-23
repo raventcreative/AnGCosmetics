@@ -64,7 +64,7 @@ export default function ResellerPage() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-cotton-pink bg-white p-6 shadow-md desktop:p-8">
+          <div className="border border-cotton-pink bg-paper p-6 shadow-md desktop:p-8">
             <p className="text-label uppercase tracking-[0.12em] text-blossom-deep">
               Simulasi margin
             </p>
@@ -72,11 +72,11 @@ export default function ResellerPage() {
               Ambil 1 lusin lip series
             </h2>
             <dl className="mt-4 flex flex-col gap-3 text-body-sm">
-              <div className="flex justify-between border-b border-line pb-2">
+              <div className="flex justify-between border-b border-hairline pb-2">
                 <dt className="text-cocoa-soft">Harga ambil (12 × Rp 18.750)</dt>
                 <dd className="font-semibold text-cocoa">{rupiah(225000)}</dd>
               </div>
-              <div className="flex justify-between border-b border-line pb-2">
+              <div className="flex justify-between border-b border-hairline pb-2">
                 <dt className="text-cocoa-soft">Harga jual (12 × Rp 40.000)</dt>
                 <dd className="font-semibold text-cocoa">{rupiah(480000)}</dd>
               </div>
@@ -93,7 +93,7 @@ export default function ResellerPage() {
         </div>
       </section>
 
-      <section id="daftar-harga" className="bg-butter-cream section-y">
+      <section id="daftar-harga" className="bg-mist section-y">
         <div className="container-ag flex flex-col gap-8">
           <SectionHeading
             eyebrow="07 · Pricing"
@@ -102,11 +102,11 @@ export default function ResellerPage() {
             desc="Harga standar jual dan harga reseller sesuai company profile A&G Cosmetics 2026."
           />
 
-          <div className="overflow-hidden rounded-lg border border-line bg-white">
+          <div className="overflow-hidden border border-hairline bg-paper">
             <table className="w-full text-left">
               <caption className="sr-only">Daftar harga produk A&G Cosmetics</caption>
               <thead>
-                <tr className="border-b border-line bg-cotton-pink/30">
+                <tr className="border-b border-hairline bg-cotton-pink/30">
                   <th scope="col" className="p-4 text-label uppercase tracking-[0.12em] text-cocoa">
                     Nama produk
                   </th>
@@ -120,7 +120,7 @@ export default function ResellerPage() {
               </thead>
               <tbody>
                 {priceList.map((row) => (
-                  <tr key={row.name} className="border-b border-line last:border-0">
+                  <tr key={row.name} className="border-b border-hairline last:border-0">
                     <th scope="row" className="p-4 text-body-sm font-semibold text-cocoa">
                       {row.name}
                     </th>
@@ -140,7 +140,7 @@ export default function ResellerPage() {
           <SectionHeading eyebrow="Alur" title="Empat langkah sampai" accent="jualan" />
           <ol className="grid gap-4 tablet:grid-cols-2 desktop:grid-cols-4 tablet:gap-6">
             {steps.map((step, i) => (
-              <li key={step.title} className="rounded-lg border border-line bg-white p-6">
+              <li key={step.title} className="border border-hairline bg-paper p-6">
                 <span className="flex size-10 items-center justify-center rounded-full bg-cotton-pink font-display text-title text-blossom-deep">
                   {i + 1}
                 </span>
@@ -152,7 +152,7 @@ export default function ResellerPage() {
         </div>
       </section>
 
-      <section className="bg-butter-cream section-y">
+      <section className="bg-mist section-y">
         <div className="container-ag grid gap-8 desktop:grid-cols-[0.9fr_1.1fr]">
           <SectionHeading eyebrow="FAQ reseller" title="Pertanyaan sebelum" accent="mulai" />
           <FAQAccordion items={faqs.filter((f) => f.group === "reseller")} />

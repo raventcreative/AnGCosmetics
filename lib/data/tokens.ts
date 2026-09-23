@@ -90,3 +90,54 @@ export const componentGroups = [
   { id: "konten", no: "06", title: "Konten & Edukasi", count: 4, items: ["BlogCard", "IngredientsSection", "FAQAccordion", "Testimonial"] },
   { id: "social", no: "07", title: "Social Media", count: 5, items: ["FeedTemplate", "Carousel", "StoryTemplate", "MarketplaceKit", "LiveAdsKit"] },
 ];
+
+/**
+ * Web theme "Quiet Blossom" — turunan Garden Blossom khusus website.
+ * Brand guideline tetap berlaku penuh untuk kemasan, social media, dan marketplace.
+ */
+export const webThemeTokens = [
+  {
+    token: "paper",
+    hex: "#FFFFFF",
+    usage: "Background halaman website. Menggantikan ivory agar tampilan terasa lapang dan elegan.",
+    class: "bg-paper",
+    text: "text-cocoa",
+  },
+  {
+    token: "mist",
+    hex: "#F7F5F2",
+    usage: "Bidang tenang: tile foto produk, section jeda, blok cara pakai. Pengganti butter-cream di web.",
+    class: "bg-mist",
+    text: "text-cocoa",
+  },
+  {
+    token: "hairline",
+    hex: "#E9E4DD",
+    usage: "Garis tipis pemisah di atas putih. Menggantikan border card yang tebal.",
+    class: "bg-hairline",
+    text: "text-cocoa",
+  },
+];
+
+export const webThemeRules = [
+  {
+    title: "Putih dominan, pink jadi aksen",
+    desc: "Background halaman putih. Pink muncul di harga, kata aksen italic, chip varian, dan foto produk — bukan sebagai bidang besar. Proporsi 60/25/10/5 di brand guideline tetap dipakai untuk kemasan dan social media.",
+  },
+  {
+    title: "Sudut siku untuk permukaan dan tombol",
+    desc: "Website memakai sudut 0 untuk tile foto, section, input, dan tombol supaya terasa editorial. Radius pill tetap dipakai untuk chip, badge, dan seluruh materi social media sesuai brand guideline.",
+  },
+  {
+    title: "Garis, bukan kotak",
+    desc: "Pemisah memakai hairline 1px dan jarak, bukan card berbayang. Shadow hanya dipakai pada elemen melayang: modal, cart drawer, mega menu, dan toast.",
+  },
+  {
+    title: "Foto yang memimpin",
+    desc: "Setiap halaman utama dibuka oleh satu foto besar dengan satu pesan. Produk selalu tampil utuh di atas tile mist dengan label kemasan yang terbaca.",
+  },
+  {
+    title: "Tipografi sebagai dekorasi",
+    desc: "Fraunces dipakai besar dengan satu kata aksen italic. Label dan menu memakai style nav: 11px, uppercase, tracking 0.18em.",
+  },
+];

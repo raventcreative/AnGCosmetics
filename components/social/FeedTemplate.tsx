@@ -15,7 +15,7 @@ export function FeedTemplate({ type, className }: { type: FeedType; className?: 
   return (
     <div
       className={cn(
-        "cq relative aspect-4/5 w-full overflow-hidden rounded-xl border border-line",
+        "cq relative aspect-4/5 w-full overflow-hidden rounded-xl border border-hairline",
         type === "edukasi" && "bg-butter-cream",
         type === "quote" && "bg-cocoa",
         type === "promo" && "bg-blossom-deep",

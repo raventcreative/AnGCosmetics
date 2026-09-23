@@ -71,7 +71,7 @@ export function Review({ average, total }: { average: number; total: number }) {
 
         <ul className="flex flex-col gap-4">
           {visible.map((r) => (
-            <li key={r.name} className="rounded-lg border border-line bg-white p-4 desktop:p-6">
+            <li key={r.name} className="border border-hairline bg-paper p-4 desktop:p-6">
               <div className="flex flex-wrap items-center gap-3">
                 <p className="text-body-sm font-semibold text-cocoa">{r.name}</p>
                 {r.verified && <Badge tone="cert">Pembeli terverifikasi</Badge>}

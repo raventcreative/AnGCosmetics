@@ -22,11 +22,21 @@
   --color-warning: #a8652a;
   --color-error: #b3362f;
 
+  /* --- Web theme "Quiet Blossom" ----------------------------------------
+     Turunan web dari Garden Blossom: background putih murni, pink turun jadi
+     aksen. Token brand di atas tetap utuh sebagai acuan cetak dan sosial media. */
+  --color-paper: #ffffff; /* background halaman website */
+  --color-mist: #f7f5f2; /* bidang tenang: tile foto produk, section jeda */
+  --color-hairline: #e9e4dd; /* garis tipis di atas putih */
+
   /* --- Tipografi -------------------------------------------------------- */
   --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
   --font-sans: var(--font-nunito), "Nunito", ui-sans-serif, system-ui, sans-serif;
   --font-logo: var(--font-bodoni), "Bodoni Moda", Didot, Georgia, serif;
 
+  --text-display-2xl: 72px;
+  --text-display-2xl--line-height: 76px;
+  --text-display-2xl--font-weight: 400;
   --text-display-xl: 56px;
   --text-display-xl--line-height: 60px;
   --text-display-xl--font-weight: 400;
@@ -64,6 +74,10 @@
   --text-label--line-height: 16px;
   --text-label--font-weight: 600;
   --text-label--letter-spacing: 0.12em;
+  --text-nav: 11px;
+  --text-nav--line-height: 16px;
+  --text-nav--font-weight: 600;
+  --text-nav--letter-spacing: 0.18em;
 
   /* --- Radius ----------------------------------------------------------- */
   --radius-sm: 8px; /* input, thumbnail kecil, toast */
@@ -91,7 +105,7 @@
   }
 
   body {
-    background-color: var(--color-ivory);
+    background-color: var(--color-paper);
     color: var(--color-cocoa);
     font-family: var(--font-sans);
     font-size: var(--text-body);
@@ -135,10 +149,29 @@
 
 /* Jarak antar section: 48px mobile, 64px desktop */
 @utility section-y {
-  padding-block: 48px;
-  @media (width >= 1200px) {
-    padding-block: 64px;
+  padding-block: 56px;
+  @media (width >= 768px) {
+    padding-block: 72px;
   }
+  @media (width >= 1200px) {
+    padding-block: 96px;
+  }
+}
+
+/* Napas ekstra untuk section editorial besar */
+@utility section-y-lg {
+  padding-block: 72px;
+  @media (width >= 768px) {
+    padding-block: 104px;
+  }
+  @media (width >= 1200px) {
+    padding-block: 140px;
+  }
+}
+
+/* Garis tipis pemisah section — pengganti blok warna */
+@utility rule-top {
+  border-top: 1px solid var(--color-hairline);
 }
 
 /* Satu kata aksen italic blossom-deep per headline */

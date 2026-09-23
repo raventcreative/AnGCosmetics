@@ -16,8 +16,8 @@ export function FAQAccordion({ items }: { items: Faq[] }) {
           <li
             key={item.q}
             className={cn(
-              "border-b border-line",
-              isOpen && "rounded-md border-b-transparent bg-white shadow-sm",
+              "border-b border-hairline",
+              isOpen && "bg-mist",
             )}
           >
             <button
@@ -28,7 +28,7 @@ export function FAQAccordion({ items }: { items: Faq[] }) {
               <span className="text-title text-cocoa">{item.q}</span>
               <span
                 aria-hidden="true"
-                className="flex size-8 shrink-0 items-center justify-center rounded-full bg-cotton-pink/60 text-title text-blossom-deep"
+                className="flex size-8 shrink-0 items-center justify-center rounded-full border border-hairline text-title text-blossom-deep"
               >
                 {isOpen ? "–" : "+"}
               </span>

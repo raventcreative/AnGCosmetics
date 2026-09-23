@@ -40,7 +40,7 @@ export function Toast({
       role="status"
       aria-live="polite"
       className={cn(
-        "flex items-center gap-3 rounded-sm border border-line bg-white px-4 py-3 shadow-md",
+        "flex items-center gap-3 border border-hairline bg-paper px-4 py-3 shadow-md",
         inline
           ? "w-full"
           : "fixed left-1/2 top-4 z-50 w-[calc(100%-32px)] max-w-[380px] -translate-x-1/2 tablet:left-auto tablet:right-6 tablet:translate-x-0",

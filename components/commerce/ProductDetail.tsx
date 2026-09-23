@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Badge, CertBadges } from "@/components/ui/Badge";
+import { CertBadges } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Rating } from "@/components/ui/Rating";
 import { Toast } from "@/components/ui/Toast";
@@ -12,10 +12,8 @@ import { site, waLink } from "@/lib/site";
 import { cn, rupiah } from "@/lib/utils";
 
 /**
- * Layout detail produk. Kiri: galeri (foto utama radius-xl + thumbnail).
- * Kanan: breadcrumb, nama heading-1, rating, harga, chip varian, quantity stepper,
- * tombol primary + secondary, badge BPOM/Halal, poin manfaat.
- * Mobile: galeri di atas, tombol aksi menempel di bawah layar.
+ * Detail produk: galeri di kiri, keputusan beli di kanan.
+ * Mobile: galeri di atas, tombol beli menempel di bawah layar.
  */
 export function ProductDetail({ product }: { product: Product }) {
   const images = [product.image, ...product.gallery];
@@ -25,19 +23,16 @@ export function ProductDetail({ product }: { product: Product }) {
   const [toast, setToast] = useState(false);
 
   return (
-    <div className="container-ag grid gap-8 py-8 desktop:grid-cols-2 desktop:gap-16 desktop:py-12">
+    <div className="container-ag grid gap-10 py-10 desktop:grid-cols-2 desktop:gap-20 desktop:py-16">
       <div className="flex flex-col gap-4">
-        <div className="overflow-hidden rounded-xl border border-line bg-white">
+        <div className="relative aspect-[4/5] overflow-hidden bg-mist">
           <Image
             src={images[active]}
             alt={product.name}
-            width={900}
-            height={900}
+            fill
             priority
-            className={cn(
-              "w-full object-contain",
-              active === 0 ? "aspect-square p-6" : "aspect-[4/5] object-cover",
-            )}
+            sizes="(max-width: 1200px) 100vw, 50vw"
+            className={cn(active === 0 ? "scale-[0.78] object-contain" : "object-cover")}
           />
         </div>
         <div className="flex gap-3">
@@ -47,43 +42,48 @@ export function ProductDetail({ product }: { product: Product }) {
               onClick={() => setActive(i)}
               aria-label={`Lihat foto ${i + 1}`}
               className={cn(
-                "size-20 overflow-hidden rounded-sm border bg-white p-1 transition",
-                active === i ? "border-blossom-deep" : "border-line hover:border-cotton-pink",
+                "relative size-20 overflow-hidden border bg-mist transition",
+                active === i ? "border-cocoa" : "border-transparent hover:border-hairline",
               )}
             >
               <Image
                 src={img}
                 alt=""
-                width={160}
-                height={160}
-                className="size-full object-contain"
+                fill
+                sizes="80px"
+                className={cn(i === 0 ? "scale-[0.78] object-contain" : "object-cover")}
               />
             </button>
           ))}
         </div>
       </div>
 
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-6">
         <nav aria-label="Breadcrumb" className="text-caption text-cocoa-soft">
-          <Link href="/" className="hover:text-blossom-deep">
+          <Link href="/" className="transition hover:text-blossom-deep">
             Home
           </Link>
           <span className="mx-2">/</span>
-          <Link href={`/produk?kategori=${product.category}`} className="hover:text-blossom-deep">
+          <Link
+            href={`/produk?kategori=${product.category}`}
+            className="transition hover:text-blossom-deep"
+          >
             {product.categoryLabel}
           </Link>
           <span className="mx-2">/</span>
           <span className="text-cocoa">{product.name}</span>
         </nav>
 
-        <div className="flex flex-col gap-3">
-          <p className="text-label uppercase tracking-[0.12em] text-sage-deep">{product.eyebrow}</p>
-          <h1 className="font-display text-heading-1 text-cocoa">{product.name}</h1>
+        <div className="flex flex-col gap-4">
+          <p className="text-nav uppercase text-cocoa-soft">{product.eyebrow}</p>
+          <h1 className="font-display text-heading-1 text-cocoa desktop:text-display-l">
+            {product.name}
+          </h1>
           <p className="font-display text-tagline italic text-blossom-deep">{product.tagline}</p>
           <Rating value={product.rating} count={product.reviewCount} size={18} />
         </div>
 
-        <div className="flex items-baseline gap-3">
+        <div className="flex items-baseline gap-4 border-y border-hairline py-5">
           <span className="text-heading-2 font-semibold text-blossom-deep">
             {rupiah(product.price)}
           </span>
@@ -92,25 +92,25 @@ export function ProductDetail({ product }: { product: Product }) {
           </span>
         </div>
 
-        <p className="text-body text-cocoa-soft">{product.description}</p>
+        <p className="max-w-[54ch] text-body text-cocoa-soft">{product.description}</p>
 
         {product.shades && (
-          <div className="flex flex-col gap-2">
-            <p className="text-[13px] font-semibold text-cocoa">Pilih shade</p>
+          <div className="flex flex-col gap-3">
+            <p className="text-nav uppercase text-cocoa-soft">Pilih shade</p>
             <div className="flex flex-wrap gap-2">
               {product.shades.map((s, i) => (
                 <button
                   key={s.name}
                   onClick={() => setShade(i)}
                   className={cn(
-                    "flex items-center gap-2 rounded-full px-3 py-2 text-body-sm transition",
+                    "flex items-center gap-2 rounded-full border px-4 py-2 text-body-sm transition",
                     shade === i
-                      ? "bg-cotton-pink text-cocoa ring-[1.5px] ring-blossom-deep"
-                      : "bg-cotton-pink/50 text-cocoa hover:bg-cotton-pink",
+                      ? "border-cocoa bg-cotton-pink/40 text-cocoa"
+                      : "border-hairline text-cocoa hover:border-cocoa",
                   )}
                 >
                   <span
-                    className="size-4 rounded-full border border-white/70"
+                    className="size-4 rounded-full"
                     style={{ backgroundColor: s.hex }}
                     aria-hidden="true"
                   />
@@ -122,11 +122,11 @@ export function ProductDetail({ product }: { product: Product }) {
         )}
 
         <div className="flex flex-wrap items-center gap-4">
-          <div className="flex h-11 items-center rounded-full border border-line bg-white">
+          <div className="flex h-11 items-center border border-hairline">
             <button
               onClick={() => setQty((q) => Math.max(1, q - 1))}
               aria-label="Kurangi jumlah"
-              className="size-11 rounded-full text-title text-cocoa transition hover:bg-cotton-pink/40"
+              className="size-11 text-title text-cocoa transition hover:bg-mist"
             >
               –
             </button>
@@ -136,16 +136,19 @@ export function ProductDetail({ product }: { product: Product }) {
             <button
               onClick={() => setQty((q) => q + 1)}
               aria-label="Tambah jumlah"
-              className="size-11 rounded-full text-title text-cocoa transition hover:bg-cotton-pink/40"
+              className="size-11 text-title text-cocoa transition hover:bg-mist"
             >
               +
             </button>
           </div>
-          <Badge tone="success">Stok tersedia</Badge>
+          <span className="flex items-center gap-2 text-body-sm text-success">
+            <span className="size-1.5 rounded-full bg-success" aria-hidden="true" />
+            Stok tersedia
+          </span>
         </div>
 
         <div className="hidden gap-3 tablet:flex">
-          <Button href={site.marketplace.shopee} external fullWidth>
+          <Button href={site.marketplace.shopee} external fullWidth variant="ink">
             Beli di Shopee
           </Button>
           <Button href={site.marketplace.tiktok} variant="secondary" external fullWidth>
@@ -155,40 +158,38 @@ export function ProductDetail({ product }: { product: Product }) {
 
         <button
           onClick={() => setToast(true)}
-          className="text-left text-body-sm font-semibold text-blossom-deep hover:underline"
+          className="self-start text-body-sm font-semibold text-blossom-deep underline-offset-4 hover:underline"
         >
           Tanya dulu sebelum beli? Chat bestie kami
         </button>
 
         <CertBadges pom={product.pom} />
 
-        <ul className="grid gap-3 tablet:grid-cols-2">
+        <ul className="grid gap-0 tablet:grid-cols-2 tablet:gap-x-8">
           {product.benefits.map((b) => (
-            <li key={b.title} className="rounded-md border border-line bg-white p-4">
-              <p className="text-body-sm font-semibold text-cocoa">{b.title}</p>
-              <p className="text-caption text-cocoa-soft">{b.desc}</p>
+            <li key={b.title} className="border-t border-hairline py-4">
+              <p className="font-sans text-body-sm font-semibold text-cocoa">{b.title}</p>
+              <p className="mt-1 text-caption text-cocoa-soft">{b.desc}</p>
             </li>
           ))}
         </ul>
 
-        <div className="rounded-lg bg-butter-cream p-4">
-          <p className="text-label uppercase tracking-[0.12em] text-cocoa-soft">Cara pakai</p>
-          <ol className="mt-2 flex flex-col gap-2">
+        <div className="bg-mist p-6">
+          <p className="text-nav uppercase text-cocoa-soft">Cara pakai</p>
+          <ol className="mt-4 flex flex-col gap-3">
             {product.howToUse.map((step, i) => (
-              <li key={step} className="flex gap-3 text-body-sm text-cocoa">
-                <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-white text-caption font-semibold text-blossom-deep">
-                  {i + 1}
-                </span>
-                {step}
+              <li key={step} className="flex gap-4 text-body-sm text-cocoa">
+                <span className="font-display text-title text-blossom-pink">0{i + 1}</span>
+                <span className="flex-1">{step}</span>
               </li>
             ))}
           </ol>
         </div>
       </div>
 
-      {/* Mobile: tombol aksi menempel di bawah layar */}
-      <div className="fixed inset-x-0 bottom-0 z-30 flex gap-3 border-t border-line bg-white/95 p-4 backdrop-blur tablet:hidden">
-        <Button href={site.marketplace.shopee} external fullWidth>
+      {/* Mobile: tombol beli menempel di bawah layar */}
+      <div className="fixed inset-x-0 bottom-0 z-30 flex gap-3 border-t border-hairline bg-paper/95 p-4 backdrop-blur tablet:hidden">
+        <Button href={site.marketplace.shopee} external fullWidth variant="ink">
           Beli · {rupiah(product.price * qty)}
         </Button>
       </div>
@@ -199,7 +200,8 @@ export function ProductDetail({ product }: { product: Product }) {
         message="Chat WhatsApp terbuka di tab baru, ya bestie."
         action={{
           label: "Buka",
-          onClick: () => window.open(waLink(`Hai A&G, aku mau tanya soal ${product.name}.`), "_blank"),
+          onClick: () =>
+            window.open(waLink(`Hai A&G, aku mau tanya soal ${product.name}.`), "_blank"),
         }}
         onClose={() => setToast(false)}
       />

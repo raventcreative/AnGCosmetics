@@ -18,7 +18,7 @@ export function MarketplaceKit() {
         ].map((item) => (
           <div
             key={item.img}
-            className={`cq relative aspect-square overflow-hidden rounded-lg border border-line ${item.bg}`}
+            className={`cq relative aspect-square overflow-hidden rounded-lg border border-hairline ${item.bg}`}
           >
             <Logo size="sm" className="absolute left-[5cqw] top-[5cqw] scale-[0.7]" />
             <div className="flex size-full items-center justify-center p-[12cqw]">
@@ -40,7 +40,7 @@ export function MarketplaceKit() {
         ))}
       </div>
 
-      <div className="cq relative aspect-[3/1] overflow-hidden rounded-lg border border-line bg-ivory">
+      <div className="cq relative aspect-[3/1] overflow-hidden rounded-lg border border-hairline bg-ivory">
         <SageLeaf className="absolute -left-[2cqw] bottom-0 w-[18cqw] opacity-70" />
         <div className="flex size-full items-center justify-between px-[6cqw]">
           <div>

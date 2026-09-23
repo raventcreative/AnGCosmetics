@@ -4,9 +4,9 @@ import { cn } from "@/lib/utils";
 type Variant = "default" | "elevated" | "promo";
 
 const variants: Record<Variant, string> = {
-  default: "border border-line",
-  elevated: "border border-line shadow-sm",
-  promo: "border border-cotton-pink shadow-md",
+  default: "border border-hairline",
+  elevated: "border border-hairline shadow-sm",
+  promo: "border border-cotton-pink",
 };
 
 /** Semua card berlatar white agar clean dan elegan. Warna brand lewat teks, badge, foto. */
@@ -22,7 +22,7 @@ export function Card({
   as?: "div" | "article" | "section" | "li";
 }) {
   return (
-    <As className={cn("rounded-lg bg-white p-4 desktop:p-6", variants[variant], className)}>
+    <As className={cn("bg-paper p-4 desktop:p-6", variants[variant], className)}>
       {children}
     </As>
   );

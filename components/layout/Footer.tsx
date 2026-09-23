@@ -53,7 +53,7 @@ export function Footer() {
               href={site.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-ivory/25 px-4 py-2 text-body-sm transition hover:border-cotton-pink hover:text-cotton-pink"
+              className="border border-ivory/25 px-4 py-2 text-nav uppercase transition hover:border-cotton-pink hover:text-cotton-pink"
             >
               Instagram
             </a>
@@ -61,7 +61,7 @@ export function Footer() {
               href={site.social.tiktok}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-ivory/25 px-4 py-2 text-body-sm transition hover:border-cotton-pink hover:text-cotton-pink"
+              className="border border-ivory/25 px-4 py-2 text-nav uppercase transition hover:border-cotton-pink hover:text-cotton-pink"
             >
               TikTok
             </a>
@@ -120,9 +120,9 @@ export function Footer() {
               id="footer-email"
               type="email"
               placeholder="email@kamu.com"
-              className="h-11 rounded-sm border border-ivory/25 bg-transparent px-4 text-body text-ivory placeholder:text-ivory/50 focus:border-cotton-pink focus:outline-none"
+              className="h-11 border border-ivory/25 bg-transparent px-4 text-body text-ivory placeholder:text-ivory/50 focus:border-cotton-pink focus:outline-none"
             />
-            <Button type="submit" variant="primary-light">
+            <Button type="submit" variant="paper">
               Daftar newsletter
             </Button>
           </form>

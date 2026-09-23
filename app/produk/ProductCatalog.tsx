@@ -55,7 +55,7 @@ export function ProductCatalog() {
           desc="Setiap produk kami cantumkan nomor POM-nya. Klik detail untuk lihat kandungan dan cara pakai."
         />
 
-        <div className="flex flex-col gap-4 rounded-lg border border-line bg-white p-4 desktop:flex-row desktop:items-end desktop:justify-between desktop:p-6">
+        <div className="flex flex-col gap-6 border-y border-hairline py-6 desktop:flex-row desktop:items-end desktop:justify-between">
           <div className="flex flex-wrap gap-2">
             {[{ id: "semua", label: "Semua" }, ...categories.map((c) => ({ id: c.id, label: c.label }))].map(
               (chip) => (
@@ -66,10 +66,10 @@ export function ProductCatalog() {
                     setPage(1);
                   }}
                   className={cn(
-                    "h-11 rounded-full px-4 text-body-sm font-semibold transition",
+                    "h-11 border px-5 text-body-sm font-semibold transition",
                     category === chip.id
-                      ? "bg-cotton-pink text-cocoa ring-[1.5px] ring-blossom-deep"
-                      : "bg-cotton-pink/40 text-cocoa hover:bg-cotton-pink",
+                      ? "border-cocoa bg-cocoa text-ivory"
+                      : "border-hairline text-cocoa hover:border-cocoa",
                   )}
                 >
                   {chip.label}
@@ -99,7 +99,7 @@ export function ProductCatalog() {
                 id="urutkan"
                 value={sort}
                 onChange={(e) => setSort(e.target.value as typeof sort)}
-                className="h-11 rounded-sm border border-line bg-white px-4 text-body text-cocoa focus:border-[1.5px] focus:border-blossom-deep focus:outline-none"
+                className="h-11 border border-hairline bg-paper px-4 text-body text-cocoa focus:border-[1.5px] focus:border-blossom-deep focus:outline-none"
               >
                 {sorts.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -118,7 +118,7 @@ export function ProductCatalog() {
         {visible.length > 0 ? (
           <ProductGrid products={visible} />
         ) : (
-          <div className="rounded-lg border border-line bg-white p-8 text-center">
+          <div className="border border-hairline bg-paper p-8 text-center">
             <p className="text-title text-cocoa">Belum ada produk yang cocok</p>
             <p className="mt-2 text-body-sm text-cocoa-soft">
               Coba kata kunci lain, atau reset filter kategorinya, bestie.

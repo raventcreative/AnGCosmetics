@@ -11,7 +11,7 @@ export function BlogCard({ article }: { article: Article }) {
     <article className="group flex flex-col gap-3">
       <Link
         href={`/journal/${article.slug}`}
-        className="overflow-hidden rounded-lg border border-line bg-white"
+        className="block overflow-hidden bg-mist"
       >
         <Image
           src={article.cover}

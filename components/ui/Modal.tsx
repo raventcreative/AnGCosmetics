@@ -48,7 +48,7 @@ export function Modal({
       <div
         ref={ref}
         tabIndex={-1}
-        className="relative w-full max-w-[480px] rounded-lg bg-white p-6 shadow-lg outline-none"
+        className="relative w-full max-w-[480px] bg-paper p-6 shadow-lg outline-none"
       >
         <div className="flex items-start justify-between gap-4">
           <h2 className="font-display text-heading-2">{title}</h2>

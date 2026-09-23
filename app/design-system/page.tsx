@@ -22,6 +22,8 @@ import { CartDemo, InputDemo, ModalDemo, PaginationDemo, ToastDemo } from "./Dem
 import {
   breakpointTokens,
   colorTokens,
+  webThemeRules,
+  webThemeTokens,
   componentGroups,
   principles,
   radiusTokens,
@@ -51,7 +53,7 @@ function ComponentBlock({
   children: ReactNode;
 }) {
   return (
-    <article id={name.toLowerCase()} className="scroll-mt-28 border-t border-line pt-8">
+    <article id={name.toLowerCase()} className="scroll-mt-28 border-t border-hairline pt-8">
       <div className="flex flex-col gap-2">
         <p className="text-label uppercase tracking-[0.12em] text-blossom-deep">
           Komponen {no}
@@ -59,7 +61,7 @@ function ComponentBlock({
         <h3 className="font-display text-heading-2 text-cocoa">{name}</h3>
         <p className="max-w-[72ch] text-body-sm text-cocoa-soft">{desc}</p>
       </div>
-      <div className="mt-6 rounded-lg border border-line bg-white p-4 desktop:p-8">{children}</div>
+      <div className="mt-6 border border-hairline bg-paper p-4 desktop:p-8">{children}</div>
     </article>
   );
 }
@@ -70,7 +72,7 @@ export default function DesignSystemPage() {
   return (
     <>
       {/* Cover */}
-      <section className="relative overflow-hidden border-b border-line bg-butter-cream">
+      <section className="relative overflow-hidden border-b border-hairline bg-mist">
         <FlowerBadge
           color="cotton"
           className="pointer-events-none absolute -right-16 -top-10 size-64 opacity-60"
@@ -108,7 +110,7 @@ export default function DesignSystemPage() {
           <SectionHeading eyebrow="01 · Brand book" title="Prinsip" accent="visual" />
           <ol className="grid gap-4 tablet:grid-cols-2 desktop:grid-cols-4">
             {principles.map((p, i) => (
-              <li key={p.title} className="rounded-lg border border-line bg-white p-6">
+              <li key={p.title} className="border border-hairline bg-paper p-6">
                 <span className="font-display text-heading-2 text-blossom-pink">0{i + 1}</span>
                 <p className="mt-2 text-title text-cocoa">{p.title}</p>
                 <p className="mt-1 text-body-sm text-cocoa-soft">{p.desc}</p>
@@ -118,8 +120,41 @@ export default function DesignSystemPage() {
         </div>
       </section>
 
+      {/* Web theme */}
+      <section id="web-theme" className="section-y rule-top scroll-mt-28">
+        <div className="container-ag flex flex-col gap-10">
+          <SectionHeading
+            eyebrow="02 · Foundations"
+            title="Web theme"
+            accent="Quiet Blossom"
+            desc="Turunan Garden Blossom khusus website: background putih, pink turun jadi aksen, sudut siku untuk permukaan dan tombol. Brand guideline tetap berlaku penuh untuk kemasan, social media, dan marketplace."
+          />
+
+          <div className="grid gap-4 tablet:grid-cols-3">
+            {webThemeTokens.map((t) => (
+              <div key={t.token} className="border border-hairline">
+                <div className={`${t.class} ${t.text} flex h-20 items-end justify-between p-4`}>
+                  <span className="text-caption font-semibold">{t.token}</span>
+                  <span className="text-caption">{t.hex}</span>
+                </div>
+                <p className="border-t border-hairline p-4 text-body-sm text-cocoa-soft">{t.usage}</p>
+              </div>
+            ))}
+          </div>
+
+          <ul className="grid gap-0 tablet:grid-cols-2 tablet:gap-x-10">
+            {webThemeRules.map((rule) => (
+              <li key={rule.title} className="border-t border-hairline py-5">
+                <p className="font-sans text-title text-cocoa">{rule.title}</p>
+                <p className="mt-1 text-body-sm text-cocoa-soft">{rule.desc}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* Token warna */}
-      <section id="foundations" className="bg-butter-cream section-y scroll-mt-28">
+      <section id="foundations" className="bg-mist section-y scroll-mt-28">
         <div className="container-ag flex flex-col gap-8">
           <SectionHeading
             eyebrow="02 · Foundations"
@@ -129,7 +164,7 @@ export default function DesignSystemPage() {
           />
           <div className="grid gap-4 tablet:grid-cols-2 desktop:grid-cols-3">
             {colorTokens.map((c) => (
-              <div key={c.token} className="overflow-hidden rounded-lg border border-line bg-white">
+              <div key={c.token} className="overflow-hidden border border-hairline bg-paper">
                 <div className={`${c.class} ${c.text} flex h-20 items-end justify-between p-4`}>
                   <span className="text-caption font-semibold">{c.token}</span>
                   <span className="text-caption">{c.hex}</span>
@@ -153,8 +188,8 @@ export default function DesignSystemPage() {
             accent="tipografi"
             desc="Logo: Bodoni Moda 500 · Display: Fraunces 400/600 + italic · Sans: Nunito 400/600. Semua font berlisensi SIL Open Font License."
           />
-          <div className="overflow-hidden rounded-lg border border-line bg-white">
-            <ul className="divide-y divide-line">
+          <div className="overflow-hidden border border-hairline bg-paper">
+            <ul className="divide-y divide-hairline">
               {typeScale.map((t) => (
                 <li
                   key={t.style}
@@ -175,7 +210,7 @@ export default function DesignSystemPage() {
       </section>
 
       {/* Spacing, radius, shadow, grid */}
-      <section className="bg-butter-cream section-y">
+      <section className="bg-mist section-y">
         <div className="container-ag flex flex-col gap-8">
           <SectionHeading
             eyebrow="02 · Foundations"
@@ -183,7 +218,7 @@ export default function DesignSystemPage() {
             accent="grid"
           />
           <div className="grid gap-6 desktop:grid-cols-2">
-            <div className="rounded-lg border border-line bg-white p-6">
+            <div className="border border-hairline bg-paper p-6">
               <p className="text-label uppercase tracking-[0.12em] text-sage-deep">Spacing</p>
               <ul className="mt-4 flex flex-col gap-3">
                 {spacingTokens.map((s) => (
@@ -206,13 +241,13 @@ export default function DesignSystemPage() {
             </div>
 
             <div className="flex flex-col gap-6">
-              <div className="rounded-lg border border-line bg-white p-6">
+              <div className="border border-hairline bg-paper p-6">
                 <p className="text-label uppercase tracking-[0.12em] text-sage-deep">Radius</p>
                 <ul className="mt-4 grid grid-cols-5 gap-3">
                   {radiusTokens.map((r) => (
                     <li key={r.token} className="flex flex-col items-center gap-2 text-center">
                       <span
-                        className={`size-14 border border-line bg-cotton-pink ${r.class}`}
+                        className={`size-14 border border-hairline bg-cotton-pink ${r.class}`}
                         aria-hidden="true"
                       />
                       <span className="text-caption text-cocoa">{r.value}</span>
@@ -221,7 +256,7 @@ export default function DesignSystemPage() {
                 </ul>
               </div>
 
-              <div className="rounded-lg border border-line bg-white p-6">
+              <div className="border border-hairline bg-paper p-6">
                 <p className="text-label uppercase tracking-[0.12em] text-sage-deep">Shadow</p>
                 <ul className="mt-4 grid gap-4 tablet:grid-cols-3">
                   {shadowTokens.map((s) => (
@@ -239,11 +274,11 @@ export default function DesignSystemPage() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-lg border border-line bg-white">
+          <div className="overflow-hidden border border-hairline bg-paper">
             <table className="w-full text-left">
               <caption className="sr-only">Breakpoint dan grid</caption>
               <thead>
-                <tr className="border-b border-line bg-cotton-pink/30">
+                <tr className="border-b border-hairline bg-cotton-pink/30">
                   <th scope="col" className="p-4 text-label uppercase tracking-[0.12em]">Token</th>
                   <th scope="col" className="p-4 text-label uppercase tracking-[0.12em]">Nilai</th>
                   <th scope="col" className="p-4 text-label uppercase tracking-[0.12em]">Grid</th>
@@ -251,7 +286,7 @@ export default function DesignSystemPage() {
               </thead>
               <tbody>
                 {breakpointTokens.map((b) => (
-                  <tr key={b.token} className="border-b border-line last:border-0">
+                  <tr key={b.token} className="border-b border-hairline last:border-0">
                     <th scope="row" className="p-4 text-body-sm font-semibold text-cocoa">
                       {b.token}
                     </th>
@@ -379,7 +414,7 @@ export default function DesignSystemPage() {
       </section>
 
       {/* 04 E-commerce */}
-      <section id="ecommerce" className="bg-butter-cream section-y scroll-mt-28">
+      <section id="ecommerce" className="bg-mist section-y scroll-mt-28">
         <div className="container-ag flex flex-col gap-10">
           <SectionHeading
             eyebrow="04 · Komponen"
@@ -420,7 +455,7 @@ export default function DesignSystemPage() {
                   alt={product.name}
                   width={400}
                   height={400}
-                  className="rounded-xl border border-line bg-white p-4"
+                  className="border border-hairline bg-paper p-4"
                 />
                 <div className="flex flex-col gap-2">
                   <p className="text-label uppercase tracking-[0.12em] text-sage-deep">
@@ -479,7 +514,7 @@ export default function DesignSystemPage() {
             desc="Header sticky: announcement bar blossom-deep, lalu bar utama ivory dengan wordmark kiri, menu kategori tengah, ikon cari/akun/keranjang kanan. Hover kategori membuka mega menu card white radius-md shadow-md. Mobile: hamburger kiri, logo tengah, keranjang kanan."
           >
             <div className="flex flex-col gap-3">
-              <div className="rounded-md border border-line">
+              <div className="rounded-md border border-hairline">
                 <div className="rounded-t-md bg-blossom-deep px-4 py-2 text-center text-caption text-ivory">
                   Gratis ongkir untuk pembelian di toko resmi · Semua produk BPOM &amp; Halal
                 </div>
@@ -509,37 +544,30 @@ export default function DesignSystemPage() {
           <ComponentBlock
             no="15"
             name="Hero"
-            desc="Kiri: eyebrow, headline display-xl Fraunces dengan satu kata aksen italic blossom-deep, subteks, tombol primary + secondary, dan 3 trust point (BPOM, Halal, Standar Korea). Kanan: foto produk di atas bentuk bunga scallop blossom-pink dengan daun sage. Mobile: gambar di atas, headline display-l."
+            desc="Hero editorial full-bleed: satu foto besar, satu pesan. Teks duduk di sepertiga kiri dengan scrim gradien tipis agar kontras tetap aman berapa pun terang fotonya. Isi: eyebrow, headline display dengan satu kata aksen italic, subteks, tombol ink + secondary. Mobile memakai versi potret dari foto yang sama."
           >
-            <div className="grid items-center gap-6 tablet:grid-cols-2">
-              <div className="flex flex-col gap-3">
-                <p className="text-label uppercase tracking-[0.12em] text-sage-deep">
-                  Affordable luxury · Sejak 2008
-                </p>
-                <p className="font-display text-display-l text-cocoa">
-                  Glow ala <em className="accent">Korea</em>, buatan Indonesia
-                </p>
-                <p className="text-body text-cocoa-soft">
-                  Semua sudah BPOM dan Halal, di harga Rp 30rb sampai Rp 80rb.
+            <div className="relative isolate h-[320px] overflow-hidden">
+              <Image
+                src="/editorial/hero-wide.jpg"
+                alt=""
+                fill
+                sizes="(max-width: 1200px) 100vw, 1000px"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-paper via-paper/80 to-transparent" />
+              <div className="relative flex h-full max-w-[420px] flex-col justify-center gap-4 p-8">
+                <p className="text-nav uppercase text-blossom-deep">Seri unggulan</p>
+                <p className="font-display text-heading-1 text-cocoa">
+                  Glow yang <em className="accent">tenang</em>, bukan yang instan
                 </p>
                 <div className="flex gap-3">
-                  <Button size="sm">Lihat produk</Button>
+                  <Button size="sm" variant="ink">
+                    Lihat koleksi
+                  </Button>
                   <Button size="sm" variant="secondary">
-                    Keranjang kuning
+                    Toko resmi
                   </Button>
                 </div>
-              </div>
-              <div className="relative flex justify-center">
-                <FlowerBadge className="size-52">
-                  <Image
-                    src="/products/advanced-brightening-shower-gel.png"
-                    alt=""
-                    width={400}
-                    height={400}
-                    className="h-[76%] w-auto object-contain"
-                  />
-                </FlowerBadge>
-                <SageLeaf className="absolute -bottom-2 left-0 w-20" />
               </div>
             </div>
           </ComponentBlock>
@@ -573,7 +601,7 @@ export default function DesignSystemPage() {
       </section>
 
       {/* 06 Konten & edukasi */}
-      <section id="konten" className="bg-butter-cream section-y scroll-mt-28">
+      <section id="konten" className="bg-mist section-y scroll-mt-28">
         <div className="container-ag flex flex-col gap-10">
           <SectionHeading
             eyebrow="06 · Komponen"
@@ -604,7 +632,7 @@ export default function DesignSystemPage() {
                 {products[3].ingredients.map((ing, i) => (
                   <div
                     key={ing.name}
-                    className="flex flex-col gap-3 rounded-lg border border-line bg-white p-6"
+                    className="flex flex-col gap-3 border border-hairline bg-paper p-6"
                   >
                     <span
                       className={`flex size-11 items-center justify-center rounded-full ${
@@ -653,7 +681,7 @@ export default function DesignSystemPage() {
             <div className="rounded-lg bg-cotton-pink/60 p-6">
               <div className="grid gap-4 tablet:grid-cols-2">
                 {[0, 1].map((i) => (
-                  <div key={i} className="flex flex-col gap-3 rounded-lg border border-line bg-white p-6">
+                  <div key={i} className="flex flex-col gap-3 border border-hairline bg-paper p-6">
                     <p className="font-display text-[18px] italic leading-7 text-cocoa">
                       &ldquo;Shower gel-nya nggak bikin kulit ketarik, wanginya lembut banget.&rdquo;
                     </p>
@@ -733,7 +761,7 @@ export default function DesignSystemPage() {
       </section>
 
       {/* Catatan */}
-      <section className="bg-cotton-pink/40 section-y">
+      <section className="bg-mist section-y">
         <div className="container-ag flex flex-col gap-4 desktop:max-w-[76ch]">
           <SectionHeading eyebrow="Catatan" title="Sebelum dipakai" accent="produksi" />
           <ul className="flex flex-col gap-3 text-body text-cocoa">

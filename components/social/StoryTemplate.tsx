@@ -18,7 +18,7 @@ export function StoryTemplate({
     return (
       <div
         className={cn(
-          "cq flex aspect-9/16 w-full items-center justify-center rounded-xl border border-line bg-cotton-pink",
+          "cq flex aspect-9/16 w-full items-center justify-center rounded-xl border border-hairline bg-cotton-pink",
           className,
         )}
       >
@@ -40,7 +40,7 @@ export function StoryTemplate({
     return (
       <div
         className={cn(
-          "cq relative flex aspect-9/16 w-full flex-col items-center justify-center gap-[3cqw] rounded-xl border border-line bg-butter-cream p-[6cqw] text-center",
+          "cq relative flex aspect-9/16 w-full flex-col items-center justify-center gap-[3cqw] rounded-xl border border-hairline bg-butter-cream p-[6cqw] text-center",
           className,
         )}
       >
@@ -59,7 +59,7 @@ export function StoryTemplate({
   return (
     <div
       className={cn(
-        "cq relative flex aspect-9/16 w-full flex-col items-center justify-between rounded-xl border border-line bg-ivory py-[14%]",
+        "cq relative flex aspect-9/16 w-full flex-col items-center justify-between rounded-xl border border-hairline bg-ivory py-[14%]",
         className,
       )}
     >

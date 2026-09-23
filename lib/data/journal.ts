@@ -18,7 +18,7 @@ export const articles: Article[] = [
       "Bukan soal beli banyak produk. Urutan yang benar bikin hasilnya kelihatan lebih cepat.",
     readTime: "4 menit baca",
     date: "12 September 2026",
-    cover: "/gallery/advanced-brightening-shower-gel-2.jpg",
+    cover: "/editorial/ritual-hands.jpg",
     body: [
       {
         paragraphs: [
@@ -58,7 +58,7 @@ export const articles: Article[] = [
       "Nomor POM bukan pajangan. Ini cara cepat memastikan produk yang kamu beli memang terdaftar.",
     readTime: "3 menit baca",
     date: "5 September 2026",
-    cover: "/gallery/niajic-brightening-soap-2.jpg",
+    cover: "/editorial/texture-serum.jpg",
     body: [
       {
         paragraphs: [
@@ -93,7 +93,7 @@ export const articles: Article[] = [
       "Dua bahan yang paling sering ditanya bestie. Ini fungsinya, dan kenapa kami pakai keduanya.",
     readTime: "5 menit baca",
     date: "28 Agustus 2026",
-    cover: "/gallery/pdrn-booster-body-serum-1.jpg",
+    cover: "/editorial/skin-detail.jpg",
     body: [
       {
         paragraphs: [
@@ -128,7 +128,7 @@ export const articles: Article[] = [
       "Dua-duanya bagus, tapi untuk momen yang berbeda. Ini cara memilihnya dalam 30 detik.",
     readTime: "3 menit baca",
     date: "20 Agustus 2026",
-    cover: "/gallery/lip-tint-2.jpg",
+    cover: "/editorial/ugc-3.jpg",
     body: [
       {
         paragraphs: [

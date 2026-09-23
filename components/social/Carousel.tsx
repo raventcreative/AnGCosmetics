@@ -26,7 +26,7 @@ export function Carousel() {
     <div className="flex flex-col gap-4">
       <div
         className={cn(
-          "cq relative aspect-4/5 w-full overflow-hidden rounded-xl border border-line p-[6cqw]",
+          "cq relative aspect-4/5 w-full overflow-hidden rounded-xl border border-hairline p-[6cqw]",
           index % 2 === 0 ? "bg-ivory" : "bg-butter-cream",
         )}
       >

@@ -9,7 +9,7 @@ import { Logo } from "@/components/layout/Logo";
 export function LiveAdsKit() {
   return (
     <div className="grid gap-6 desktop:grid-cols-2">
-      <div className="cq relative aspect-9/16 overflow-hidden rounded-xl border border-line bg-cocoa/90">
+      <div className="cq relative aspect-9/16 overflow-hidden rounded-xl border border-hairline bg-cocoa/90">
         <div className="absolute inset-x-0 top-0 flex items-center justify-between p-[5cqw]">
           <div className="flex items-center gap-[3cqw] rounded-full bg-ivory/95 px-[4cqw] py-[2cqw]">
             <Logo size="sm" className="scale-[0.6]" />
@@ -50,7 +50,7 @@ export function LiveAdsKit() {
         </p>
       </div>
 
-      <div className="cq relative aspect-4/5 overflow-hidden rounded-xl border border-line bg-ivory p-[6cqw]">
+      <div className="cq relative aspect-4/5 overflow-hidden rounded-xl border border-hairline bg-ivory p-[6cqw]">
         <div className="flex size-full flex-col justify-between">
           <p className="font-display text-[7cqw] leading-tight text-cocoa">
             Kulit kusam? Mulai dari <em className="accent">mandi</em>.

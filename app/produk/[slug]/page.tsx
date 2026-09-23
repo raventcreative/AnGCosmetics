@@ -43,7 +43,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <ProductDetail product={product} />
 
       {product.claims && (
-        <section className="bg-cotton-pink/50 section-y">
+        <section className="bg-mist section-y">
           <div className="container-ag flex flex-col gap-6">
             <SectionHeading
               eyebrow="Hasil uji"
@@ -55,7 +55,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               {product.claims.map((claim) => (
                 <li
                   key={claim.label}
-                  className="rounded-lg border border-line bg-white p-6 text-center"
+                  className="border border-hairline bg-paper p-6 text-center"
                 >
                   <p className="font-display text-display-l text-blossom-deep">{claim.value}</p>
                   <p className="mt-2 text-body-sm text-cocoa">{claim.label}</p>
@@ -83,7 +83,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      <section className="bg-butter-cream section-y">
+      <section className="bg-mist section-y">
         <div className="container-ag flex flex-col gap-8 desktop:grid desktop:grid-cols-[0.9fr_1.1fr]">
           <SectionHeading eyebrow="FAQ" title="Sebelum kamu" accent="checkout" />
           <FAQAccordion items={faqs.filter((f) => f.group !== "reseller").slice(0, 4)} />

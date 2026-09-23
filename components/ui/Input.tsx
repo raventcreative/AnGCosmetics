@@ -22,9 +22,9 @@ export function Input({ label, error, hint, id, className, ...rest }: Props) {
         aria-invalid={Boolean(error) || undefined}
         aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
         className={cn(
-          "h-11 w-full rounded-sm border bg-white px-4 text-body text-cocoa placeholder:text-cocoa-soft",
-          "focus:border-[1.5px] focus:border-blossom-deep focus:outline-none focus:shadow-sm",
-          error ? "border-error" : "border-line",
+          "h-11 w-full border bg-paper px-4 text-body text-cocoa placeholder:text-cocoa-soft",
+          "focus:border-[1.5px] focus:border-blossom-deep focus:outline-none",
+          error ? "border-error" : "border-hairline",
           className,
         )}
         {...rest}
@@ -58,7 +58,7 @@ export function Textarea({
       <textarea
         id={id}
         className={cn(
-          "min-h-[110px] w-full rounded-sm border border-line bg-white px-4 py-3 text-body text-cocoa placeholder:text-cocoa-soft",
+          "min-h-[110px] w-full border border-hairline bg-paper px-4 py-3 text-body text-cocoa placeholder:text-cocoa-soft",
           "focus:border-[1.5px] focus:border-blossom-deep focus:outline-none",
           className,
         )}

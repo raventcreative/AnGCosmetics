@@ -4,6 +4,11 @@ Website resmi A&G Cosmetics: company profile, katalog produk, Bestie Journal, ha
 reseller, plus dua halaman dokumentasi yang tersemat langsung di website —
 **Brand Guideline** dan **Design System "Garden Blossom"**.
 
+Tampilan memakai web theme **"Quiet Blossom"**: background putih, tipografi editorial,
+foto besar sebagai pembuka tiap halaman, dan pink yang turun menjadi aksen. Arahnya
+elegan dan tenang di paruh atas halaman, lalu masuk ke blok konversi (best seller,
+ulasan, reseller) di paruh bawah.
+
 Transaksi retail diarahkan ke toko resmi marketplace (Shopee / TikTok Shop), jadi website
 ini tidak menjalankan cart dan checkout sendiri. Komponen `Cart` dan `CheckoutSummary`
 tetap dibangun sebagai bagian design system dan bisa dipakai kalau nanti mau punya
@@ -49,8 +54,11 @@ lib/
   data/                    products, company, brand, tokens, faq, journal, testimonials
 public/
   products/                12 foto produk PNG transparan (diekstrak dari company profile)
-  gallery/                 14 visual produk untuk galeri detail dan cover artikel
+  gallery/                 14 visual produk untuk galeri halaman detail
+  editorial/               12 slot foto editorial + SLOTS.md (lihat catatan di bawah)
   graphics/                Ornamen tangkai untuk aksen
+scripts/
+  make-image-placeholders.py  Membuat ulang placeholder slot foto
 ```
 
 ## Token design system
@@ -66,11 +74,33 @@ Sumber: `design_system_ang_cosmetics.pdf` (02 · Foundations). Semua token hidup
 | Radius | `rounded-sm` 8px · `rounded-md` 12px · `rounded-lg` 20px · `rounded-xl` 28px · `rounded-full` |
 | Shadow | `shadow-sm`, `shadow-md`, `shadow-lg` |
 | Breakpoint | `tablet:` 768px · `desktop:` 1200px (mobile-first, tanpa prefix) |
-| Utility brand | `container-ag` (maks 1200px), `section-y` (48/64px), `accent` (kata aksen italic) |
+| Web theme | `bg-paper` (putih), `bg-mist` (bidang jeda), `border-hairline` (garis tipis) |
+| Utility brand | `container-ag` (maks 1200px), `section-y`, `section-y-lg`, `rule-top`, `accent` |
 
 Catatan warna: `blossom-deep` di web memakai `#A9436C` (versi gelap dari `#C2577F` di brand
 guideline) supaya teks ivory di atasnya lolos kontras AA 5.6:1. `#C2577F` tetap tersedia
 sebagai `blossom-guide` untuk elemen dekoratif besar.
+
+## Web theme "Quiet Blossom"
+
+Turunan Garden Blossom khusus website. Seluruh keputusannya didokumentasikan di halaman
+`/design-system` bagian **Web theme**, dan diringkas di `/brand-guideline`:
+
+- Background halaman putih (`paper`), bidang jeda `mist`, pemisah `hairline` 1px.
+- Pink hanya untuk harga, kata aksen italic, chip varian, dan foto produk.
+- Sudut siku untuk permukaan, tile foto, input, dan tombol. Pill tetap dipakai untuk chip,
+  badge, dan seluruh materi social media sesuai brand guideline.
+- Shadow hanya untuk elemen melayang: modal, cart drawer, mega menu, toast.
+- Setiap halaman utama dibuka satu foto besar dengan satu pesan.
+
+Proporsi warna 60/25/10/5 dan radius pill di brand guideline **tetap berlaku penuh** untuk
+kemasan, social media, dan marketplace.
+
+## Foto editorial
+
+`public/editorial/` saat ini berisi **placeholder**, bukan foto final. Daftar slot, rasio,
+dan arahan isinya ada di [`public/editorial/SLOTS.md`](public/editorial/SLOTS.md). Timpa
+file dengan nama yang sama — tidak ada kode yang perlu diubah.
 
 ## Yang perlu diganti sebelum publikasi
 
@@ -80,9 +110,11 @@ sebagai `blossom-guide` untuk elemen dekoratif besar.
 3. **Logo vektor** — wordmark A&G saat ini ditulis ulang memakai Bodoni Moda
    (`components/layout/Logo.tsx`), sesuai catatan design system. Ganti dengan file SVG resmi
    bila sudah ada.
-4. **Testimoni dan ulasan** — `lib/data/testimonials.ts` masih contoh layout, bukan
-   testimoni asli. Ganti dengan ulasan asli pelanggan beserta izinnya.
-5. **Harga** — `lib/data/products.ts` mengikuti tabel harga company profile 2026. Cek ulang
+4. **Testimoni dan ulasan** — `lib/data/testimonials.ts` dan section ulasan di homepage
+   (`components/home/UGCReviews.tsx`) masih contoh layout, bukan pelanggan asli. Ganti
+   dengan ulasan asli beserta izinnya.
+5. **Foto editorial** — 12 slot di `public/editorial/` masih placeholder.
+6. **Harga** — `lib/data/products.ts` mengikuti tabel harga company profile 2026. Cek ulang
    untuk produk baru.
 
 ## Aturan konten yang dipegang website ini

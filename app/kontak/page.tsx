@@ -45,7 +45,7 @@ export default function KontakPage() {
           />
           <ul className="flex flex-col gap-4">
             {channels.map((c) => (
-              <li key={c.title} className="rounded-lg border border-line bg-white p-6">
+              <li key={c.title} className="border border-hairline bg-paper p-6">
                 <p className="text-label uppercase tracking-[0.12em] text-sage-deep">{c.title}</p>
                 <p className="mt-1 text-title text-cocoa">{c.value}</p>
                 <p className="mt-1 text-body-sm text-cocoa-soft">{c.desc}</p>
@@ -57,7 +57,7 @@ export default function KontakPage() {
           </ul>
         </div>
 
-        <div className="flex flex-col gap-5 rounded-lg border border-line bg-white p-6 shadow-sm desktop:p-8">
+        <div className="flex flex-col gap-5 border border-hairline bg-paper p-6 shadow-sm desktop:p-8">
           <div>
             <h2 className="font-display text-heading-2 text-cocoa">Kirim pesan</h2>
             <p className="mt-1 text-body-sm text-cocoa-soft">

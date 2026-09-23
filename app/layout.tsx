@@ -30,6 +30,7 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: {
     default: `${site.name} — ${site.tagline}`,
     template: `%s · ${site.name}`,
@@ -56,10 +57,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id" className={`${bodoni.variable} ${fraunces.variable} ${nunito.variable}`}>
-      <body className="min-h-dvh bg-ivory antialiased">
+      <body className="min-h-dvh bg-paper antialiased">
         <a
           href="#konten"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-blossom-deep focus:px-4 focus:py-2 focus:text-ivory"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-blossom-deep focus:px-4 focus:py-2 focus:text-ivory"
         >
           Lewati ke konten
         </a>

@@ -2,18 +2,28 @@ import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "text" | "primary-light" | "secondary-light";
+type Variant =
+  | "primary"
+  | "secondary"
+  | "text"
+  | "ink"
+  | "paper"
+  | "primary-light"
+  | "secondary-light";
 type Size = "default" | "sm";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full text-button font-semibold transition disabled:opacity-40 disabled:pointer-events-none";
+  "inline-flex items-center justify-center gap-2 text-button font-semibold transition disabled:opacity-40 disabled:pointer-events-none";
 
 const variants: Record<Variant, string> = {
   // primary: satu per layar untuk aksi utama (Beli, Checkout)
-  primary: "bg-blossom-deep text-ivory hover:bg-[#93395d] active:bg-[#82324f] shadow-sm",
+  primary: "bg-blossom-deep text-ivory hover:bg-[#93395d] active:bg-[#82324f]",
   secondary:
-    "border border-blossom-deep text-blossom-deep bg-white hover:bg-cotton-pink/40 active:bg-cotton-pink/60",
+    "border border-cocoa/25 text-cocoa bg-paper hover:border-cocoa hover:bg-mist",
   text: "text-blossom-deep hover:bg-cotton-pink/40 underline-offset-4 hover:underline",
+  // ink & paper: aksi editorial (hero, banner foto) — tenang, tanpa warna kuat
+  ink: "bg-cocoa text-ivory hover:bg-[#2b2122]",
+  paper: "bg-paper text-cocoa hover:bg-mist",
   // dua varian di bawah untuk dipakai di atas background cocoa
   "primary-light": "bg-blossom-pink text-cocoa hover:bg-cotton-pink shadow-sm",
   "secondary-light": "border border-ivory/50 text-ivory hover:bg-ivory/10",

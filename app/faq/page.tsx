@@ -35,7 +35,7 @@ export default function FaqPage() {
           </section>
         ))}
 
-        <div className="flex flex-col gap-4 rounded-lg border border-cotton-pink bg-white p-6 shadow-sm desktop:flex-row desktop:items-center desktop:justify-between desktop:p-8">
+        <div className="flex flex-col gap-4 border border-cotton-pink bg-paper p-6 shadow-sm desktop:flex-row desktop:items-center desktop:justify-between desktop:p-8">
           <div>
             <p className="text-title text-cocoa">Masih ada yang mau ditanya?</p>
             <p className="text-body-sm text-cocoa-soft">

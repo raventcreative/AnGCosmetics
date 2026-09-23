@@ -1,6 +1,7 @@
 # Catatan untuk sesi berikutnya
 
 Website A&G Cosmetics — Next.js 15 App Router + Tailwind v4, tanpa database.
+Tampilan memakai web theme **"Quiet Blossom"**: background putih, pink jadi aksen.
 
 ## Prinsip yang harus dijaga
 
@@ -8,16 +9,32 @@ Website A&G Cosmetics — Next.js 15 App Router + Tailwind v4, tanpa database.
    sudah jadi utility Tailwind di `app/globals.css`. Jangan tulis hex di komponen.
 2. **Satu sumber data.** Konten produk, company profile, brand guideline, dan token
    dokumentasi ada di `lib/data/`. Halaman hanya me-render, tidak menyimpan konten.
-3. **Card selalu putih.** Warna brand masuk lewat teks, badge, dan foto — bukan background
-   card. Background halaman `ivory`, section selang-seling `butter-cream`.
-4. **Satu tombol primary per layar.** `blossom-deep` hanya untuk aksi utama, harga, dan link.
-5. **Jangan bentrokkan utility warna lewat `className`.** Untuk tombol/badge di atas
-   background gelap pakai varian `primary-light`, `secondary-light`, `cert-light` —
-   menimpa `bg-*` lewat className tidak deterministik di Tailwind.
-6. **Klaim jujur.** Setiap angka hasil survei wajib ada catatan sumbernya. Testimoni yang
-   masih contoh layout wajib diberi keterangan.
-7. **Mobile-first.** Breakpoint kustom: `tablet:` (768px) dan `desktop:` (1200px). Target
-   sentuh minimal 44px.
+3. **Putih dominan.** Background halaman `paper`. Bidang jeda memakai `mist`, bukan
+   butter-cream. Pink hanya untuk harga, kata aksen italic, chip, dan foto produk —
+   tidak pernah jadi bidang besar di website.
+4. **Garis, bukan kotak.** Pemisah memakai `border-hairline` 1px dan jarak. Shadow hanya
+   untuk elemen melayang: modal, cart drawer, mega menu, toast.
+5. **Sudut siku.** Permukaan, tile foto, input, dan tombol memakai sudut 0. Pill tetap
+   dipakai untuk chip, badge, dan seluruh materi social media sesuai brand guideline.
+6. **Satu tombol primary per layar.** Aksi utama di halaman editorial memakai varian
+   `ink`; `blossom-deep` tetap untuk harga, link, dan aksi commerce.
+7. **Jangan bentrokkan utility warna lewat `className`.** Untuk tombol/badge di atas
+   background gelap pakai varian `ink`, `paper`, `primary-light`, `secondary-light`,
+   `cert-light` — menimpa `bg-*` lewat className tidak deterministik di Tailwind.
+8. **Teks di atas foto wajib punya scrim.** Gradien `from-paper`/`from-cocoa` supaya
+   kontras aman berapa pun terang fotonya. Jangan andalkan foto tertentu.
+9. **Hati-hati satuan `ch`.** `max-w-[30ch]` di elemen wrapper dihitung dari font 16px,
+   bukan dari headline di dalamnya. Untuk kolom teks hero pakai px.
+10. **Klaim jujur.** Setiap angka hasil survei wajib ada catatan sumbernya. Testimoni dan
+    ulasan yang masih contoh layout wajib diberi keterangan.
+11. **Mobile-first.** Breakpoint kustom: `tablet:` (768px) dan `desktop:` (1200px). Target
+    sentuh minimal 44px.
+
+## Foto
+
+`public/editorial/` masih berisi placeholder. Baca `public/editorial/SLOTS.md` untuk
+daftar slot, rasio, dan arahan isinya. Timpa file dengan nama yang sama — tidak ada kode
+yang perlu diubah.
 
 ## Verifikasi sebelum bilang selesai
 
@@ -30,4 +47,4 @@ npx next start -p 3210 &
 SHOTS=./.shots node shot.mjs         # ONLY=home,produk untuk sebagian halaman saja
 ```
 
-`shot.mjs` juga melaporkan error console, response 4xx, dan horizontal overflow per halaman.
+`shot.mjs` melaporkan error console, response 4xx, dan horizontal overflow per halaman.

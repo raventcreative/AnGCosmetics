@@ -63,7 +63,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             width={900}
             height={560}
             priority
-            className="w-full rounded-xl border border-line object-cover"
+            className="w-full border border-hairline object-cover"
           />
 
           <div className="flex flex-col gap-8">
@@ -78,7 +78,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   </p>
                 ))}
                 {block.list && (
-                  <ul className="flex flex-col gap-2 rounded-lg bg-butter-cream p-4">
+                  <ul className="flex flex-col gap-2 bg-mist p-4">
                     {block.list.map((item) => (
                       <li key={item} className="flex items-start gap-3 text-body-sm text-cocoa">
                         <span
@@ -94,7 +94,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             ))}
           </div>
 
-          <div className="flex flex-col gap-4 rounded-lg border border-cotton-pink bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-4 border border-cotton-pink bg-paper p-6 shadow-sm">
             <p className="font-display text-heading-2 text-cocoa">
               Siap mulai <em className="accent">rutinitas</em> kamu?
             </p>
@@ -111,7 +111,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </div>
       </article>
 
-      <section className="bg-butter-cream section-y">
+      <section className="bg-mist section-y">
         <div className="container-ag flex flex-col gap-8">
           <SectionHeading eyebrow="Baca juga" title="Artikel lain untuk" accent="bestie" />
           <div className="grid gap-6 tablet:grid-cols-3">

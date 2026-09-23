@@ -37,7 +37,7 @@ export function Cart({ open, onClose }: { open: boolean; onClose: () => void }) 
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Keranjang">
       <div className="absolute inset-0 bg-cocoa/45" onClick={onClose} aria-hidden="true" />
       <aside className="absolute inset-y-0 right-0 flex w-full flex-col bg-white shadow-lg tablet:max-w-[420px]">
-        <header className="flex items-center justify-between border-b border-line p-4">
+        <header className="flex items-center justify-between border-b border-hairline p-4">
           <h2 className="font-display text-heading-2">
             Keranjang <span className="text-body-sm text-cocoa-soft">({items.length} item)</span>
           </h2>
@@ -52,7 +52,7 @@ export function Cart({ open, onClose }: { open: boolean; onClose: () => void }) 
           </button>
         </header>
 
-        <div className="border-b border-line p-4">
+        <div className="border-b border-hairline p-4">
           <p className="text-caption text-cocoa-soft">
             {subtotal >= FREE_SHIPPING
               ? "Yeay, kamu dapat gratis ongkir."
@@ -66,7 +66,7 @@ export function Cart({ open, onClose }: { open: boolean; onClose: () => void }) 
           </div>
         </div>
 
-        <ul className="flex-1 divide-y divide-line overflow-y-auto">
+        <ul className="flex-1 divide-y divide-hairline overflow-y-auto">
           {items.map((line) => (
             <li key={line.slug} className="flex gap-3 p-4">
               <Image
@@ -74,13 +74,13 @@ export function Cart({ open, onClose }: { open: boolean; onClose: () => void }) 
                 alt={line.product.name}
                 width={128}
                 height={128}
-                className="size-16 shrink-0 rounded-sm border border-line object-contain"
+                className="size-16 shrink-0 rounded-sm border border-hairline object-contain"
               />
               <div className="flex flex-1 flex-col gap-1">
                 <p className="text-body-sm font-semibold text-cocoa">{line.product.name}</p>
                 <p className="text-caption text-cocoa-soft">{line.product.size}</p>
                 <div className="mt-1 flex items-center justify-between">
-                  <div className="flex h-9 items-center rounded-full border border-line">
+                  <div className="flex h-9 items-center rounded-full border border-hairline">
                     <button
                       onClick={() =>
                         setLines((prev) =>
@@ -127,7 +127,7 @@ export function Cart({ open, onClose }: { open: boolean; onClose: () => void }) 
           )}
         </ul>
 
-        <div className="border-t border-line bg-butter-cream p-4">
+        <div className="border-t border-hairline bg-butter-cream p-4">
           <p className="text-label uppercase tracking-[0.12em] text-cocoa-soft">Sering dibeli bareng</p>
           <div className="mt-2 flex items-center gap-3">
             <Image
@@ -151,7 +151,7 @@ export function Cart({ open, onClose }: { open: boolean; onClose: () => void }) 
           </div>
         </div>
 
-        <footer className="border-t border-line p-4">
+        <footer className="border-t border-hairline p-4">
           <div className="flex items-center justify-between pb-3">
             <span className="text-body text-cocoa">Subtotal</span>
             <span className="text-heading-2 font-semibold text-blossom-deep">{rupiah(subtotal)}</span>
