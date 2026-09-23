@@ -13,7 +13,7 @@ export function HeroEditorial() {
       <div className="relative min-h-[560px] w-full overflow-hidden tablet:min-h-[620px] desktop:min-h-[720px]">
         <Image
           src="/editorial/hero-wide.jpg"
-          alt="Model A&G Cosmetics dengan kulit natural dalam cahaya pagi"
+          alt="Rangkaian produk A&G Cosmetics di atas podium dengan latar pink lembut"
           fill
           priority
           sizes="100vw"
@@ -21,13 +21,13 @@ export function HeroEditorial() {
         />
         <Image
           src="/editorial/hero-portrait.jpg"
-          alt="Model A&G Cosmetics dengan kulit natural dalam cahaya pagi"
+          alt="Rangkaian produk A&G Cosmetics di atas podium dengan latar pink lembut"
           fill
           priority
           sizes="100vw"
           className="object-cover object-[60%_center] tablet:hidden"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-paper via-paper/85 to-paper/10 tablet:from-paper/96 tablet:via-paper/70 tablet:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-paper/92 via-paper/70 to-paper/10 tablet:from-paper/85 tablet:via-paper/45 tablet:to-transparent" />
 
         <div className="container-ag relative flex min-h-[560px] items-center py-16 tablet:min-h-[620px] desktop:min-h-[720px]">
           <div className="flex max-w-[520px] flex-col gap-6 desktop:max-w-[620px]">

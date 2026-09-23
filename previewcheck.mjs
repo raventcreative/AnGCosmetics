@@ -10,8 +10,10 @@ p.on('pageerror', e => bad.push('pageerror: ' + e.message.slice(0, 120)));
 p.on('response', r => { if (r.status() >= 400) bad.push(`${r.status()} ${r.url().replace(BASE, '')}`); });
 
 await p.goto(BASE, { waitUntil: 'networkidle' });
-await p.evaluate(async () => { const st = innerHeight * 0.8; for (let y = 0; y < document.body.scrollHeight; y += st) { scrollTo(0, y); await new Promise(r => setTimeout(r, 80)); } scrollTo(0, 0); });
+await p.evaluate(async () => { const st = innerHeight * 0.8; for (let y = 0; y < document.body.scrollHeight; y += st) { scrollTo(0, y); await new Promise(r => setTimeout(r, 200)); } scrollTo(0, 0); });
 await p.waitForLoadState('networkidle');
+// tunggu gambar lazy selesai decode, kalau tidak hitungan "broken" cuma soal timing
+await p.evaluate(() => Promise.all([...document.images].map(i => i.complete ? null : i.decode().catch(() => null))));
 await p.waitForTimeout(600);
 const styled = await p.evaluate(() => getComputedStyle(document.body).backgroundColor);
 const fontOk = await p.evaluate(() => getComputedStyle(document.querySelector('h1')).fontFamily);
@@ -20,8 +22,8 @@ console.log('home bg      :', styled);
 console.log('h1 font      :', fontOk.slice(0, 60));
 console.log('broken imgs  :', imgOk);
 
-// navigasi: klik menu Produk
-await p.click('header nav a:has-text("Produk")');
+// navigasi: klik tautan katalog di menu utama
+await p.click('header nav a[href*="produk"]');
 await p.waitForLoadState('networkidle');
 console.log('after nav    :', p.url().replace(BASE, '→ '));
 console.log('produk cards :', await p.locator('article').count());

@@ -1,12 +1,14 @@
 # Slot foto editorial
 
-Semua file di folder ini adalah **placeholder**. Timpa dengan foto asli memakai
-nama file yang persis sama — tidak ada kode yang perlu diubah.
+Timpa file dengan nama yang persis sama — tidak ada kode yang perlu diubah.
+
+**Sudah terisi aset asli:** `hero-wide.jpg` dan `hero-portrait.jpg`.
+Sisanya masih placeholder.
 
 | File | Rasio | Dipakai di | Isi yang dibutuhkan |
 | --- | --- | --- | --- |
-| `hero-wide.jpg` | 16:9 (2048×1152) | Hero homepage (tablet ke atas) | Model wanita Indonesia, potret editorial, cahaya jendela lembut, latar putih hangat. **Ruang kosong di sepertiga kiri** untuk teks. |
-| `hero-portrait.jpg` | 3:4 (1536×2048) | Hero homepage (mobile) + hero halaman Tentang | Model yang sama, komposisi potret, kepala dan bahu. |
+| `hero-wide.jpg` | 16:9 | Hero homepage (tablet ke atas) | **Terisi** — banner rangkaian produk di atas podium, latar pink lembut, ruang kosong di kiri untuk teks. |
+| `hero-portrait.jpg` | 3:4 | Hero homepage (mobile) + hero halaman Tentang | **Terisi** — versi potret dari banner yang sama, dibuat dengan `scripts/make-hero-portrait.py`. |
 | `skin-detail.jpg` | 3:4 (1200×1600) | Section rutinitas + cover artikel PDRN | Close-up bahu, leher, dan lengan. Tekstur kulit asli, tanpa retouch berlebihan. |
 | `ritual-hands.jpg` | 3:4 (1200×1600) | Banner reseller + cover artikel rutinitas | Tangan mengoleskan lotion ke lengan, tanpa kemasan berlabel. |
 | `morning-ritual.jpg` | 16:9 (2048×1152) | Section brand full-bleed + halaman Tentang | Rutinitas pagi di kamar mandi, cahaya alami, palet putih dan pasir. Teks putih ditaruh di bawah, jadi sisakan area bawah yang tidak ramai. |
@@ -22,6 +24,16 @@ nama file yang persis sama — tidak ada kode yang perlu diubah.
 - Warna teredam, tidak oversaturasi. Palet putih, pasir, dan warna kulit.
 - Tanpa kemasan berlabel di foto model — produk ditampilkan terpisah lewat
   foto produk di `public/products/`.
+
+## Versi potret dari banner lanskap
+
+```bash
+python3 scripts/make-hero-portrait.py banner.jpg public/editorial/hero-portrait.jpg
+```
+
+Sisi kanan banner (yang berisi produk) dipakai penuh selebar kanvas dan ditempel di
+bawah, lalu ruang di atasnya diisi gradasi lanjutan dari baris teratas potongan itu —
+sambungannya tidak terlihat dan bagian atas tetap lapang untuk headline.
 
 ## Membuat ulang placeholder
 
