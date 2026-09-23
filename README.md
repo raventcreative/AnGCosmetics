@@ -26,9 +26,25 @@ checkout sendiri.
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # build produksi (28 halaman, semuanya static)
+npm run build    # build produksi (semua halaman static)
 npm run start
 ```
+
+## Preview statis (tanpa server)
+
+Menghasilkan folder `out/` berisi seluruh website sebagai file statis yang bisa dibuka
+dari root domain maupun subpath — dipakai untuk preview cepat atau hosting statis biasa:
+
+```bash
+EXPORT=1 npm run build              # output ke out/
+python3 scripts/make-static-preview.py out
+node previewcheck.mjs               # verifikasi: CSS, font, navigasi, hidrasi React
+```
+
+`make-static-preview.py` mengubah path absolut jadi relatif (termasuk di payload RSC),
+mengarahkan publicPath webpack ke basis aset tiap halaman, mengganti folder `_next/`
+menjadi `next-assets/`, dan memaksa klik tautan jadi navigasi halaman penuh karena
+hosting statis tidak punya endpoint RSC.
 
 ## Struktur
 

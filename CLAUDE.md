@@ -48,3 +48,10 @@ SHOTS=./.shots node shot.mjs         # ONLY=home,produk untuk sebagian halaman s
 ```
 
 `shot.mjs` melaporkan error console, response 4xx, dan horizontal overflow per halaman.
+
+## Preview statis
+
+`EXPORT=1 npm run build` lalu `python3 scripts/make-static-preview.py out` menghasilkan
+`out/` yang bisa disajikan dari mana pun. Verifikasi dengan `node previewcheck.mjs`
+(butuh server statis di port 3211) — yang wajib lolos: CSS dan font termuat, navigasi
+antar halaman jalan, dan hidrasi React hidup (accordion FAQ bisa dibuka).
