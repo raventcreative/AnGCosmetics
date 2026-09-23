@@ -48,7 +48,7 @@ export function Badge({
 }
 
 /** Badge sertifikasi BPOM · HALAL — outline sage-deep. */
-export function CertBadges({ pom, className }: { pom?: string; className?: string }) {
+export function CertBadges({ pom, className }: { pom?: string | null; className?: string }) {
   return (
     <div className={cn("flex flex-wrap items-center gap-2", className)}>
       <Badge tone="cert">BPOM{pom ? ` ${pom}` : ""}</Badge>

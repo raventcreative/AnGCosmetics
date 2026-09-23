@@ -59,7 +59,9 @@ export function ActiveTrio() {
                     </Link>
                   </h3>
                   <p className="mx-auto max-w-[34ch] text-body-sm text-cocoa-soft">{item.note}</p>
-                  <p className="mt-1 text-price text-blossom-deep">{rupiah(product.price)}</p>
+                  {product.price !== null && (
+                    <p className="mt-1 text-price text-blossom-deep">{rupiah(product.price)}</p>
+                  )}
                 </div>
               </article>
             );

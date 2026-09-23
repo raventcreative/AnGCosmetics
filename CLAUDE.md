@@ -27,7 +27,11 @@ Tampilan memakai web theme **"Quiet Blossom"**: background putih, pink jadi akse
    bukan dari headline di dalamnya. Untuk kolom teks hero pakai px.
 10. **Klaim jujur.** Setiap angka hasil survei wajib ada catatan sumbernya. Testimoni dan
     ulasan yang masih contoh layout wajib diberi keterangan.
-11. **Mobile-first.** Breakpoint kustom: `tablet:` (768px) dan `desktop:` (1200px). Target
+11. **Data produk yang belum lengkap ditulis `null`, bukan dikarang.** `price`, `size`, dan
+    `pom` boleh null. UI wajib menanganinya: harga jadi "Harga menyusul", tombol jadi "Tanya
+    ketersediaan", badge BPOM/Halal disembunyikan, klaim stok disembunyikan, dan blok `offers`
+    di structured data tidak dibuat. Rating disembunyikan saat `reviewCount` 0.
+12. **Mobile-first.** Breakpoint kustom: `tablet:` (768px) dan `desktop:` (1200px). Target
     sentuh minimal 44px.
 
 ## Foto

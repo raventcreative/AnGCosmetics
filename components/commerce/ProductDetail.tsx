@@ -35,7 +35,7 @@ export function ProductDetail({ product }: { product: Product }) {
             className={cn(active === 0 ? "scale-[0.78] object-contain" : "object-cover")}
           />
         </div>
-        <div className="flex gap-3">
+        <div className={cn("flex gap-3", images.length < 2 && "hidden")}>
           {images.map((img, i) => (
             <button
               key={img + i}
@@ -80,15 +80,18 @@ export function ProductDetail({ product }: { product: Product }) {
             {product.name}
           </h1>
           <p className="font-display text-tagline italic text-blossom-deep">{product.tagline}</p>
-          <Rating value={product.rating} count={product.reviewCount} size={18} />
+          {product.reviewCount > 0 && (
+            <Rating value={product.rating} count={product.reviewCount} size={18} />
+          )}
         </div>
 
-        <div className="flex items-baseline gap-4 border-y border-hairline py-5">
+        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-y border-hairline py-5">
           <span className="text-heading-2 font-semibold text-blossom-deep">
-            {rupiah(product.price)}
+            {product.price === null ? "Harga menyusul" : rupiah(product.price)}
           </span>
           <span className="text-caption text-cocoa-soft">
-            {product.size} · POM {product.pom}
+            {[product.size, product.pom && `POM ${product.pom}`].filter(Boolean).join(" · ") ||
+              "Detail kemasan menyusul"}
           </span>
         </div>
 
@@ -121,39 +124,55 @@ export function ProductDetail({ product }: { product: Product }) {
           </div>
         )}
 
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="flex h-11 items-center border border-hairline">
-            <button
-              onClick={() => setQty((q) => Math.max(1, q - 1))}
-              aria-label="Kurangi jumlah"
-              className="size-11 text-title text-cocoa transition hover:bg-mist"
-            >
-              –
-            </button>
-            <span aria-live="polite" className="w-8 text-center text-body font-semibold">
-              {qty}
+        {/* Stepper dan status stok hanya untuk produk yang sudah dijual */}
+        {product.price !== null && (
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="flex h-11 items-center border border-hairline">
+              <button
+                onClick={() => setQty((q) => Math.max(1, q - 1))}
+                aria-label="Kurangi jumlah"
+                className="size-11 text-title text-cocoa transition hover:bg-mist"
+              >
+                –
+              </button>
+              <span aria-live="polite" className="w-8 text-center text-body font-semibold">
+                {qty}
+              </span>
+              <button
+                onClick={() => setQty((q) => q + 1)}
+                aria-label="Tambah jumlah"
+                className="size-11 text-title text-cocoa transition hover:bg-mist"
+              >
+                +
+              </button>
+            </div>
+            <span className="flex items-center gap-2 text-body-sm text-success">
+              <span className="size-1.5 rounded-full bg-success" aria-hidden="true" />
+              Stok tersedia
             </span>
-            <button
-              onClick={() => setQty((q) => q + 1)}
-              aria-label="Tambah jumlah"
-              className="size-11 text-title text-cocoa transition hover:bg-mist"
-            >
-              +
-            </button>
           </div>
-          <span className="flex items-center gap-2 text-body-sm text-success">
-            <span className="size-1.5 rounded-full bg-success" aria-hidden="true" />
-            Stok tersedia
-          </span>
-        </div>
+        )}
 
         <div className="hidden gap-3 tablet:flex">
-          <Button href={site.marketplace.shopee} external fullWidth variant="ink">
-            Beli di Shopee
-          </Button>
-          <Button href={site.marketplace.tiktok} variant="secondary" external fullWidth>
-            Beli di TikTok Shop
-          </Button>
+          {product.price === null ? (
+            <Button
+              href={waLink(`Hai A&G, aku mau tanya ketersediaan ${product.name}.`)}
+              external
+              fullWidth
+              variant="ink"
+            >
+              Tanya ketersediaan
+            </Button>
+          ) : (
+            <>
+              <Button href={site.marketplace.shopee} external fullWidth variant="ink">
+                Beli di Shopee
+              </Button>
+              <Button href={site.marketplace.tiktok} variant="secondary" external fullWidth>
+                Beli di TikTok Shop
+              </Button>
+            </>
+          )}
         </div>
 
         <button
@@ -163,7 +182,13 @@ export function ProductDetail({ product }: { product: Product }) {
           Tanya dulu sebelum beli? Chat bestie kami
         </button>
 
-        <CertBadges pom={product.pom} />
+        {product.pom ? (
+          <CertBadges pom={product.pom} />
+        ) : (
+          <p className="text-caption text-cocoa-soft">
+            Nomor izin edar dan sertifikasi ditampilkan di sini setelah terbit.
+          </p>
+        )}
 
         <ul className="grid gap-0 tablet:grid-cols-2 tablet:gap-x-8">
           {product.benefits.map((b) => (
@@ -189,8 +214,17 @@ export function ProductDetail({ product }: { product: Product }) {
 
       {/* Mobile: tombol beli menempel di bawah layar */}
       <div className="fixed inset-x-0 bottom-0 z-30 flex gap-3 border-t border-hairline bg-paper/95 p-4 backdrop-blur tablet:hidden">
-        <Button href={site.marketplace.shopee} external fullWidth variant="ink">
-          Beli · {rupiah(product.price * qty)}
+        <Button
+          href={
+            product.price === null
+              ? waLink(`Hai A&G, aku mau tanya ketersediaan ${product.name}.`)
+              : site.marketplace.shopee
+          }
+          external
+          fullWidth
+          variant="ink"
+        >
+          {product.price === null ? "Tanya ketersediaan" : `Beli · ${rupiah(product.price * qty)}`}
         </Button>
       </div>
 

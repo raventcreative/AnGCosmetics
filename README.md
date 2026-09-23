@@ -51,7 +51,7 @@ hosting statis tidak punya endpoint RSC.
 ```
 app/
   page.tsx                 Home
-  produk/                  Katalog + detail produk (12 SKU, static generated)
+  produk/                  Katalog + detail produk (15 SKU, static generated)
   tentang/                 Company profile: visi misi, core values, timeline, target market
   reseller/                Daftar harga reseller + simulasi margin + alur daftar
   journal/                 Bestie Journal (4 artikel edukasi)
@@ -69,12 +69,15 @@ lib/
   site.ts                  Konfigurasi tautan: marketplace, WhatsApp, sosial media
   data/                    products, company, brand, tokens, faq, journal, testimonials
 public/
-  products/                12 foto produk PNG transparan (diekstrak dari company profile)
+  products/                15 foto produk PNG transparan — 5 dari foto studio asli,
+                           sisanya diekstrak dari company profile
   gallery/                 14 visual produk untuk galeri halaman detail
   editorial/               12 slot foto editorial + SLOTS.md (lihat catatan di bawah)
   graphics/                Ornamen tangkai untuk aksen
 scripts/
   make-image-placeholders.py  Membuat ulang placeholder slot foto
+  cutout-product-photo.py     Foto studio -> PNG transparan untuk tile produk
+  make-static-preview.py      Merapikan hasil export untuk preview statis
 ```
 
 ## Token design system
@@ -112,6 +115,19 @@ Turunan Garden Blossom khusus website. Seluruh keputusannya didokumentasikan di 
 Proporsi warna 60/25/10/5 dan radius pill di brand guideline **tetap berlaku penuh** untuk
 kemasan, social media, dan marketplace.
 
+## Foto produk
+
+`public/products/` berisi PNG transparan. Untuk foto studio baru:
+
+```bash
+python3 scripts/cutout-product-photo.py foto.jpg public/products/nama-produk.png --edge 2
+```
+
+Script mengenali latar lewat peta tepi (bukan kemiripan warna, karena botol putih di latar
+abu terang nyaris sewarna), membuang rumbai bayangan secara morfologis, lalu memudarkan
+bayangan alas yang menempel di dasar produk. Turunkan `--edge` bila bagian terang produk
+ikut terhapus, naikkan bila bercak latar tersisa.
+
 ## Foto editorial
 
 `public/editorial/` saat ini berisi **placeholder**, bukan foto final. Daftar slot, rasio,
@@ -130,7 +146,11 @@ file dengan nama yang sama — tidak ada kode yang perlu diubah.
    (`components/home/UGCReviews.tsx`) masih contoh layout, bukan pelanggan asli. Ganti
    dengan ulasan asli beserta izinnya.
 5. **Foto editorial** — 12 slot di `public/editorial/` masih placeholder.
-6. **Harga** — `lib/data/products.ts` mengikuti tabel harga company profile 2026. Cek ulang
+6. **Lini perawatan wajah** — tiga produk baru (Facial Foam, Essence Toner, Booster Whitening
+   Barrier Serum) belum punya harga, ukuran kemasan, dan nomor izin edar. Di UI ditampilkan
+   sebagai "Harga menyusul" dengan tombol "Tanya ketersediaan", tanpa klaim stok, tanpa badge
+   BPOM/Halal, dan tanpa blok penawaran di structured data.
+7. **Harga** — `lib/data/products.ts` mengikuti tabel harga company profile 2026. Cek ulang
    untuk produk baru.
 
 ## Aturan konten yang dipegang website ini

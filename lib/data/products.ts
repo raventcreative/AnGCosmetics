@@ -5,7 +5,7 @@
  * lembar produk dan selalu disertai catatan sumber survei.
  */
 
-export type ProductCategory = "body-care" | "fragrance" | "decorative";
+export type ProductCategory = "face-care" | "body-care" | "fragrance" | "decorative";
 
 export type Ingredient = { name: string; desc: string; pct?: string };
 export type Benefit = { title: string; desc: string };
@@ -18,10 +18,13 @@ export type Product = {
   category: ProductCategory;
   categoryLabel: string;
   type: string;
-  size: string;
-  pom: string;
-  price: number;
-  resellerPrice: number;
+  /** null = ukuran kemasan belum dikonfirmasi. */
+  size: string | null;
+  /** null = nomor izin edar belum tersedia untuk dipublikasikan. */
+  pom: string | null;
+  /** null = harga belum ditetapkan; UI menampilkan "Harga menyusul". */
+  price: number | null;
+  resellerPrice: number | null;
   priceGroup: string;
   image: string;
   gallery: string[];
@@ -42,6 +45,12 @@ export type Product = {
 };
 
 export const categories: { id: ProductCategory; label: string; desc: string; items: string }[] = [
+  {
+    id: "face-care",
+    label: "Face Care",
+    desc: "Lini perawatan wajah terbaru: membersihkan, menenangkan, dan merawat barrier.",
+    items: "Facial Foam · Essence Toner · Serum",
+  },
   {
     id: "body-care",
     label: "Body Care",
@@ -64,12 +73,132 @@ export const categories: { id: ProductCategory; label: string; desc: string; ite
 
 export const products: Product[] = [
   {
+    slug: "centella-hydrating-facial-foam",
+    name: "Centella Hydrating Facial Foam",
+    category: "face-care",
+    categoryLabel: "Face Care",
+    type: "Facial Foam",
+    size: null,
+    pom: null,
+    price: null,
+    resellerPrice: null,
+    priceGroup: "Face Care",
+    image: "/products/centella-hydrating-facial-foam.png",
+    gallery: [],
+    tagline: "Bersih tanpa bikin kulit ketarik",
+    eyebrow: "Low pH · Cleansing & hydrating",
+    summary: "Sabun cuci muka low pH dengan amino acid surfactant. Membersihkan lembut sekaligus menjaga kelembapan.",
+    description:
+      "Pembersih wajah harian dengan pH rendah yang mendekati pH alami kulit. Memakai amino acid surfactant sebagai bahan pembersih utama, ditemani Centella Asiatica dan Licorice Extract, sehingga wajah terasa bersih tanpa efek ketarik setelah dibilas.",
+    benefits: [
+      { title: "Low pH", desc: "Mendekati pH alami kulit, tidak mengganggu barrier." },
+      { title: "Amino Acid Surfactant", desc: "Bahan pembersih lembut, bukan sulfat keras." },
+      { title: "Menenangkan", desc: "Centella Asiatica membantu meredakan kulit yang sensitif." },
+      { title: "Tetap lembap", desc: "Sodium PCA dan Zinc PCA menjaga kelembapan setelah dibilas." },
+    ],
+    ingredients: [
+      { name: "Amino Acid Surfactant", desc: "Membersihkan lembut tanpa mengikis minyak alami kulit." },
+      { name: "Centella Asiatica", desc: "Membantu menenangkan kulit yang mudah bereaksi." },
+      { name: "Licorice Extract", desc: "Membantu tampilan kulit lebih cerah dan merata." },
+      { name: "Sodium PCA", desc: "Mengikat air agar kulit tetap lembap." },
+      { name: "Zinc PCA", desc: "Membantu menjaga keseimbangan minyak di wajah." },
+    ],
+    howToUse: [
+      "Basahi wajah, tuang seukuran biji jagung ke telapak tangan.",
+      "Busakan lalu pijat lembut ke seluruh wajah, hindari area mata.",
+      "Bilas sampai bersih, lanjutkan dengan essence toner.",
+    ],
+    rating: 0,
+    reviewCount: 0,
+    isNew: true,
+  },
+  {
+    slug: "centella-niacin-hydrating-essence-toner",
+    name: "71 Centella Niacin Hydrating Essence Toner",
+    category: "face-care",
+    categoryLabel: "Face Care",
+    type: "Essence Toner",
+    size: null,
+    pom: null,
+    price: null,
+    resellerPrice: null,
+    priceGroup: "Face Care",
+    image: "/products/centella-niacin-hydrating-essence-toner.png",
+    gallery: [],
+    tagline: "Calming & hydrating barrier-support",
+    eyebrow: "Essence toner harian",
+    summary: "Essence toner bertekstur ringan dengan Centella dan Niacinamide untuk menenangkan sekaligus melembapkan.",
+    description:
+      "Toner bertekstur essence yang menyiapkan kulit sebelum langkah berikutnya. Kombinasi Centella, Niacinamide, dan Ceramide Complex membantu menenangkan kulit sambil mendukung barrier, dengan Hyaluronic Acid yang mengunci kelembapan.",
+    benefits: [
+      { title: "Calming", desc: "Centella membantu menenangkan kulit setelah aktivitas harian." },
+      { title: "Hydrating", desc: "Tekstur essence yang ringan dan cepat meresap." },
+      { title: "Barrier support", desc: "Ceramide Complex membantu menjaga pertahanan kulit." },
+      { title: "Merata", desc: "Niacinamide membantu tampilan warna kulit lebih merata." },
+    ],
+    ingredients: [
+      { name: "Centella Asiatica", desc: "Menenangkan kulit yang kemerahan atau mudah bereaksi." },
+      { name: "Niacinamide", desc: "Membantu meratakan warna kulit dan memperbaiki barrier." },
+      { name: "Licorice", desc: "Membantu tampilan kulit lebih cerah." },
+      { name: "Collagen", desc: "Membantu kulit terasa lebih kenyal." },
+      { name: "Ceramide Complex", desc: "Mendukung lapisan pelindung kulit." },
+      { name: "Hyaluronic Acid", desc: "Mengunci kelembapan lebih lama." },
+    ],
+    howToUse: [
+      "Pakai setelah mencuci muka, saat kulit masih setengah lembap.",
+      "Tuang 2–3 pump ke telapak tangan, tepuk lembut ke seluruh wajah.",
+      "Lanjutkan dengan serum dan pelembap.",
+    ],
+    rating: 0,
+    reviewCount: 0,
+    isNew: true,
+  },
+  {
+    slug: "booster-whitening-barrier-serum",
+    name: "Booster Whitening Barrier Serum",
+    category: "face-care",
+    categoryLabel: "Face Care",
+    type: "Serum Wajah",
+    size: "30 ml",
+    pom: null,
+    price: null,
+    resellerPrice: null,
+    priceGroup: "Face Care",
+    image: "/products/booster-whitening-barrier-serum.png",
+    gallery: [],
+    tagline: "Whitening & barrier repair",
+    eyebrow: "Niacinamide 7% · Alpha Arbutin 2%",
+    summary: "Serum wajah dengan Niacinamide 7% dan Alpha Arbutin 2% untuk mencerahkan sambil merawat barrier.",
+    description:
+      "Serum wajah yang mengerjakan dua hal sekaligus: membantu mencerahkan tampilan kulit lewat Niacinamide 7% dan Alpha Arbutin 2%, sekaligus menjaga kelembapan dan barrier lewat Pentavitin dan Licorice.",
+    benefits: [
+      { title: "Mencerahkan", desc: "Niacinamide 7% membantu meratakan warna kulit." },
+      { title: "Menyamarkan noda", desc: "Alpha Arbutin 2% membantu memudarkan tampilan noda hitam." },
+      { title: "Barrier repair", desc: "Membantu menjaga pertahanan kulit tetap sehat." },
+      { title: "Lembap tahan lama", desc: "Pentavitin mengikat kelembapan sampai berjam-jam." },
+    ],
+    ingredients: [
+      { name: "Niacinamide", desc: "Meratakan warna kulit dan memperbaiki barrier.", pct: "7%" },
+      { name: "Alpha Arbutin", desc: "Membantu menyamarkan noda dan bekas jerawat.", pct: "2%" },
+      { name: "Licorice", desc: "Membantu tampilan kulit lebih cerah secara alami." },
+      { name: "Pentavitin", desc: "Menjaga kelembapan kulit lebih lama." },
+    ],
+    howToUse: [
+      "Pakai setelah essence toner, pagi dan malam.",
+      "Teteskan 3–4 tetes, ratakan ke seluruh wajah.",
+      "Pagi hari, tutup dengan sunscreen.",
+    ],
+    rating: 0,
+    reviewCount: 0,
+    isNew: true,
+  },
+  {
     slug: "advanced-brightening-shower-gel",
     name: "Advanced Brightening Shower Gel",
     category: "body-care",
     categoryLabel: "Body Care",
     type: "Shower Gel",
-    size: "250 gram",
+    size: "300 gram",
     pom: "NA18260700903",
     price: 60000,
     resellerPrice: 31250,
@@ -552,6 +681,13 @@ export const products: Product[] = [
     reviewCount: 87,
   },
 ];
+
+/** Produk yang harganya sudah ditetapkan — dipakai komponen yang menghitung total. */
+export type PricedProduct = Product & { price: number };
+
+export function pricedProducts(): PricedProduct[] {
+  return products.filter((p): p is PricedProduct => p.price !== null);
+}
 
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);

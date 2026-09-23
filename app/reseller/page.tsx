@@ -132,6 +132,11 @@ export default function ResellerPage() {
             </table>
           </div>
           <p className="text-body-sm text-cocoa-soft">*{priceNote}</p>
+          <p className="text-body-sm text-cocoa-soft">
+            Lini perawatan wajah — Centella Hydrating Facial Foam, 71 Centella Niacin Hydrating
+            Essence Toner, dan Booster Whitening Barrier Serum — belum masuk daftar harga ini.
+            Harga reseller dan jadwal rilisnya menyusul.
+          </p>
         </div>
       </section>
 

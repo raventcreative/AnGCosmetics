@@ -35,8 +35,11 @@ export function ProductCatalog() {
           p.summary.toLowerCase().includes(q),
       );
     }
-    if (sort === "termurah") list = [...list].sort((a, b) => a.price - b.price);
-    if (sort === "termahal") list = [...list].sort((a, b) => b.price - a.price);
+    // Produk tanpa harga selalu di belakang, apa pun arah urutannya
+    const price = (v: number | null) => (v === null ? Number.POSITIVE_INFINITY : v);
+    if (sort === "termurah") list = [...list].sort((a, b) => price(a.price) - price(b.price));
+    if (sort === "termahal")
+      list = [...list].sort((a, b) => (b.price ?? -1) - (a.price ?? -1));
     if (sort === "populer") list = [...list].sort((a, b) => b.reviewCount - a.reviewCount);
     return list;
   }, [category, query, sort]);

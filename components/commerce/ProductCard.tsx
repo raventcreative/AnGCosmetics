@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Rating } from "@/components/ui/Rating";
 import type { Product } from "@/lib/data/products";
-import { site } from "@/lib/site";
+import { site, waLink } from "@/lib/site";
 import { cn, rupiah } from "@/lib/utils";
 
 /**
@@ -34,24 +34,37 @@ export function ProductCard({ product, className }: { product: Product; classNam
 
       <div className="flex flex-1 flex-col gap-1.5 pt-4">
         <p className="text-nav uppercase text-cocoa-soft">
-          {product.type} · {product.size}
+          {product.type}
+          {product.size ? ` · ${product.size}` : ""}
         </p>
         <h3 className="font-sans text-title text-cocoa">
           <Link href={`/produk/${product.slug}`} className="transition hover:text-blossom-deep">
             {product.name}
           </Link>
         </h3>
-        <Rating value={product.rating} count={product.reviewCount} />
-        <p className="mt-1 text-price text-blossom-deep">{rupiah(product.price)}</p>
+        {product.reviewCount > 0 && (
+          <Rating value={product.rating} count={product.reviewCount} />
+        )}
+        <p className="mt-1 text-price text-blossom-deep">
+          {product.price === null ? (
+            <span className="text-body-sm font-semibold text-cocoa-soft">Harga menyusul</span>
+          ) : (
+            rupiah(product.price)
+          )}
+        </p>
 
         <div className="mt-3 flex items-center gap-4">
           <a
-            href={site.marketplace.shopee}
+            href={
+              product.price === null
+                ? waLink(`Hai A&G, aku mau tanya ketersediaan ${product.name}.`)
+                : site.marketplace.shopee
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-10 flex-1 items-center justify-center bg-cocoa text-button font-semibold text-ivory transition hover:bg-blossom-deep"
           >
-            Beli
+            {product.price === null ? "Tanya stok" : "Beli"}
           </a>
           <Link
             href={`/produk/${product.slug}`}
@@ -61,7 +74,9 @@ export function ProductCard({ product, className }: { product: Product; classNam
           </Link>
         </div>
 
-        <p className="pt-2 text-caption text-cocoa-soft">POM {product.pom}</p>
+        {product.pom && (
+          <p className="pt-2 text-caption text-cocoa-soft">POM {product.pom}</p>
+        )}
       </div>
     </article>
   );

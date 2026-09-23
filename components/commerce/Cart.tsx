@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
-import { products } from "@/lib/data/products";
+import { pricedProducts } from "@/lib/data/products";
 import { rupiah } from "@/lib/utils";
 
 const FREE_SHIPPING = 150000;
@@ -24,12 +24,14 @@ export function Cart({ open, onClose }: { open: boolean; onClose: () => void }) 
     { slug: "whitening-booster-body-lotion", qty: 2 },
   ]);
 
+  // Demo keranjang hanya memakai produk yang harganya sudah ditetapkan
+  const catalog = pricedProducts();
   const items = lines
-    .map((l) => ({ ...l, product: products.find((p) => p.slug === l.slug)! }))
+    .map((l) => ({ ...l, product: catalog.find((p) => p.slug === l.slug)! }))
     .filter((l) => l.product);
   const subtotal = items.reduce((sum, l) => sum + l.product.price * l.qty, 0);
   const progress = Math.min(100, Math.round((subtotal / FREE_SHIPPING) * 100));
-  const crossSell = products.find((p) => !lines.some((l) => l.slug === p.slug))!;
+  const crossSell = catalog.find((p) => !lines.some((l) => l.slug === p.slug))!;
 
   if (!open) return null;
 

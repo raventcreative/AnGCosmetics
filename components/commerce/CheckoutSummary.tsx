@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { products } from "@/lib/data/products";
+import { pricedProducts } from "@/lib/data/products";
 import { rupiah } from "@/lib/utils";
 
 /**
@@ -15,9 +15,10 @@ export function CheckoutSummary() {
   const [voucher, setVoucher] = useState("");
   const [applied, setApplied] = useState(false);
 
+  const catalog = pricedProducts();
   const lines = [
-    { product: products[0], qty: 1 },
-    { product: products[1], qty: 2 },
+    { product: catalog[0], qty: 1 },
+    { product: catalog[1], qty: 2 },
   ];
   const subtotal = lines.reduce((s, l) => s + l.product.price * l.qty, 0);
   const shipping = subtotal >= 150000 ? 0 : 18000;

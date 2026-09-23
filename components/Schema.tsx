@@ -37,20 +37,25 @@ export function ProductSchema({ product }: { product: Product }) {
     image: `${site.url}${product.image}`,
     brand: { "@type": "Brand", name: site.name },
     category: product.categoryLabel,
-    weight: product.size,
-    gtin: undefined,
-    additionalProperty: {
-      "@type": "PropertyValue",
-      name: "Nomor izin edar BPOM",
-      value: product.pom,
-    },
-    offers: {
-      "@type": "Offer",
-      price: product.price,
-      priceCurrency: "IDR",
-      availability: "https://schema.org/InStock",
-      url: `${site.url}/produk/${product.slug}`,
-    },
+    weight: product.size ?? undefined,
+    additionalProperty: product.pom
+      ? {
+          "@type": "PropertyValue",
+          name: "Nomor izin edar BPOM",
+          value: product.pom,
+        }
+      : undefined,
+    // Produk yang harganya belum ditetapkan tidak boleh punya blok penawaran
+    offers:
+      product.price === null
+        ? undefined
+        : {
+            "@type": "Offer",
+            price: product.price,
+            priceCurrency: "IDR",
+            availability: "https://schema.org/InStock",
+            url: `${site.url}/produk/${product.slug}`,
+          },
   };
   return (
     <script

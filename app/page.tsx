@@ -3,6 +3,7 @@ import Link from "next/link";
 import { HeroEditorial } from "@/components/home/HeroEditorial";
 import { Statement } from "@/components/home/Statement";
 import { ActiveTrio } from "@/components/home/ActiveTrio";
+import { NewLine } from "@/components/home/NewLine";
 import { FullBleedStory } from "@/components/home/FullBleedStory";
 import { TrustStrip } from "@/components/home/TrustStrip";
 import { RoutineSteps } from "@/components/home/RoutineSteps";
@@ -20,7 +21,7 @@ import { categories, getProduct, products } from "@/lib/data/products";
 import { articles } from "@/lib/data/journal";
 
 export default function HomePage() {
-  const bestSellers = products.filter((p) => p.bestSeller || p.isNew).slice(0, 4);
+  const bestSellers = products.filter((p) => p.bestSeller).slice(0, 4);
   const serum = getProduct("pdrn-booster-body-serum");
 
   return (
@@ -34,6 +35,7 @@ export default function HomePage() {
       </Statement>
 
       <ActiveTrio />
+      <NewLine />
 
       {/* Kategori */}
       <section className="section-y rule-top">
@@ -48,7 +50,7 @@ export default function HomePage() {
               </Button>
             }
           />
-          <div className="grid gap-8 tablet:grid-cols-3 tablet:gap-6">
+          <div className="grid gap-8 tablet:grid-cols-2 tablet:gap-6 desktop:grid-cols-4">
             {categories.map((cat) => {
               const sample = products.find((p) => p.category === cat.id)!;
               return (

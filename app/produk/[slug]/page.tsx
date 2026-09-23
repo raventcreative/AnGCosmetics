@@ -25,7 +25,13 @@ export async function generateMetadata({
   if (!product) return { title: "Produk tidak ditemukan" };
   return {
     title: product.name,
-    description: `${product.summary} ${product.size}, POM ${product.pom}. ${rupiah(product.price)}.`,
+    description: [
+      product.summary,
+      [product.size, product.pom && `POM ${product.pom}`].filter(Boolean).join(", "),
+      product.price === null ? "Harga menyusul." : `${rupiah(product.price)}.`,
+    ]
+      .filter(Boolean)
+      .join(" "),
     openGraph: { title: product.name, description: product.summary, images: [product.image] },
   };
 }
