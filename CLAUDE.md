@@ -53,9 +53,21 @@ SHOTS=./.shots node shot.mjs         # ONLY=home,produk untuk sebagian halaman s
 
 `shot.mjs` melaporkan error console, response 4xx, dan horizontal overflow per halaman.
 
+## Katalog dikendalikan URL
+
+`/produk` membaca `kategori`, `tipe`, `concern`, `kandungan`, dan `koleksi` dari query
+string, jadi tautan mega menu benar-benar memfilter dan bisa dibagikan. Karena memakai
+`useSearchParams`, halamannya dibungkus `<Suspense>` dan dirender di sisi klien — ingat ini
+saat menambah komponen baru di sana.
+
 ## Preview statis
 
 `EXPORT=1 npm run build` lalu `python3 scripts/make-static-preview.py out` menghasilkan
 `out/` yang bisa disajikan dari mana pun. Verifikasi dengan `node previewcheck.mjs`
 (butuh server statis di port 3211) — yang wajib lolos: CSS dan font termuat, navigasi
 antar halaman jalan, dan hidrasi React hidup (accordion FAQ bisa dibuka).
+
+Halaman yang dirender di sisi klien melahirkan tautan dan gambar berpath absolut yang
+tidak tersentuh perbaikan saat build, jadi shim di `<head>` memperbaikinya lewat
+MutationObserver. Script hanya menyuntik shim ke file yang belum punya `__AG_BASE__` —
+selalu jalankan di atas hasil export yang baru, jangan di folder `out/` lama.

@@ -1,30 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo, LogoLink } from "./Logo";
 import { CartIcon, SearchIcon, UserIcon } from "@/components/ui/Icons";
-import { categories, products } from "@/lib/data/products";
+import { concerns, ingredientFilters, productTypes } from "@/lib/data/products";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const concerns = [
-  { label: "Kulit kusam", href: "/produk?concern=kusam" },
-  { label: "Kulit kering", href: "/produk?concern=kering" },
-  { label: "Noda hitam", href: "/produk?concern=noda" },
-  { label: "Tampil rapi seharian", href: "/produk?concern=makeup" },
-];
-
 const mainMenu = [
+  { label: "Best Sellers", href: "/produk?koleksi=best-seller" },
   { label: "Produk", href: "/produk", mega: true },
   { label: "Brand", href: "/tentang" },
-  { label: "Journal", href: "/journal" },
-  { label: "Reseller", href: "/reseller" },
+  { label: "Offer", href: "/reseller" },
 ];
 
-const docsMenu = [
+/** Tautan sekunder — hidup di footer dan di menu mobile, bukan di bar utama. */
+const secondaryMenu = [
+  { label: "Bestie Journal", href: "/journal" },
   { label: "FAQ", href: "/faq" },
   { label: "Kontak", href: "/kontak" },
   { label: "Brand Guideline", href: "/brand-guideline" },
@@ -32,23 +26,43 @@ const docsMenu = [
 ];
 
 /**
- * Header sticky minimal: announcement bar cocoa tipis, lalu bar utama putih
- * dengan hairline bawah. Menu uppercase berjarak lebar (text-nav) supaya terasa
- * editorial, bukan toko. Mobile: hamburger kiri, logo tengah, keranjang kanan.
+ * Header sticky minimal. Menu "Produk" membuka panel tiga kolom — masalah kulit,
+ * tipe produk, dan kandungan — yang seluruh tautannya memfilter katalog lewat
+ * query string, bukan sekadar hiasan.
  */
 export function Navbar() {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState(false);
   const [openMega, setOpenMega] = useState(false);
-  const featured = products[0];
 
   useEffect(() => {
     setOpenMenu(false);
     setOpenMega(false);
   }, [pathname]);
 
+  const columns = [
+    {
+      title: "Masalah kulit",
+      items: concerns.map((c) => ({ label: c.label, href: `/produk?concern=${c.id}` })),
+    },
+    {
+      title: "Kategori",
+      items: productTypes().map((t) => ({
+        label: t,
+        href: `/produk?tipe=${encodeURIComponent(t)}`,
+      })),
+    },
+    {
+      title: "Kandungan",
+      items: ingredientFilters.map((i) => ({
+        label: i.label,
+        href: `/produk?kandungan=${i.id}`,
+      })),
+    },
+  ];
+
   return (
-    <header className="sticky top-0 z-40 bg-paper">
+    <header className="sticky top-0 z-40 bg-paper" onMouseLeave={() => setOpenMega(false)}>
       <div className="bg-cocoa py-2.5 text-center">
         <p className="container-ag text-[10px] font-semibold uppercase tracking-[0.18em] text-ivory/85">
           BPOM &amp; Halal · Dikirim dari Indonesia · Belanja di toko resmi
@@ -71,86 +85,30 @@ export function Navbar() {
               </span>
             </button>
 
-            <nav className="hidden items-center gap-7 desktop:flex" aria-label="Menu utama">
-              {mainMenu.map((item) => (
-                <div
-                  key={item.href}
-                  onMouseEnter={() => setOpenMega(Boolean(item.mega))}
-                  onMouseLeave={() => setOpenMega(false)}
-                  className="relative flex h-[76px] items-center"
-                >
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "text-nav uppercase transition",
-                      pathname.startsWith(item.href)
-                        ? "text-blossom-deep"
-                        : "text-cocoa hover:text-blossom-deep",
-                    )}
+            <nav className="hidden items-center gap-8 desktop:flex" aria-label="Menu utama">
+              {mainMenu.map((item) => {
+                const active =
+                  item.href === "/produk"
+                    ? pathname.startsWith("/produk")
+                    : pathname.startsWith(item.href.split("?")[0]);
+                return (
+                  <div
+                    key={item.label}
+                    onMouseEnter={() => setOpenMega(Boolean(item.mega))}
+                    className="flex h-[76px] items-center"
                   >
-                    {item.label}
-                  </Link>
-
-                  {item.mega && openMega && (
-                    <div className="absolute left-1/2 top-full z-50 w-[760px] -translate-x-1/2">
-                      <div className="grid grid-cols-[1fr_1fr_260px] gap-10 border border-hairline bg-paper p-8 shadow-sm">
-                        <div>
-                          <p className="text-nav uppercase text-cocoa-soft">Kategori</p>
-                          <ul className="mt-4 flex flex-col gap-3">
-                            {categories.map((c) => (
-                              <li key={c.id}>
-                                <Link
-                                  href={`/produk?kategori=${c.id}`}
-                                  className="group block"
-                                >
-                                  <span className="text-title font-sans text-cocoa transition group-hover:text-blossom-deep">
-                                    {c.label}
-                                  </span>
-                                  <span className="block text-caption text-cocoa-soft">
-                                    {c.items}
-                                  </span>
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <p className="text-nav uppercase text-cocoa-soft">Shop by concern</p>
-                          <ul className="mt-4 flex flex-col gap-3">
-                            {concerns.map((c) => (
-                              <li key={c.href}>
-                                <Link
-                                  href={c.href}
-                                  className="text-body-sm text-cocoa transition hover:text-blossom-deep"
-                                >
-                                  {c.label}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <Link href={`/produk/${featured.slug}`} className="group flex flex-col gap-3">
-                          <span className="flex aspect-square items-center justify-center bg-mist p-6">
-                            <Image
-                              src={featured.image}
-                              alt={featured.name}
-                              width={220}
-                              height={220}
-                              className="h-full w-auto object-contain transition duration-500 group-hover:scale-105"
-                            />
-                          </span>
-                          <span>
-                            <span className="text-nav uppercase text-cocoa-soft">Best seller</span>
-                            <span className="mt-1 block text-body-sm font-semibold text-cocoa">
-                              {featured.name}
-                            </span>
-                          </span>
-                        </Link>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "text-nav uppercase transition",
+                        active ? "text-blossom-deep" : "text-cocoa hover:text-blossom-deep",
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  </div>
+                );
+              })}
             </nav>
           </div>
 
@@ -186,25 +144,72 @@ export function Navbar() {
         </div>
       </div>
 
+      {/* Panel tiga kolom di bawah bar, selebar halaman */}
+      {openMega && (
+        <div
+          className="absolute inset-x-0 top-full hidden border-b border-hairline bg-paper shadow-sm desktop:block"
+          onMouseEnter={() => setOpenMega(true)}
+        >
+          <div className="container-ag grid grid-cols-3 gap-10 py-10">
+            {columns.map((col) => (
+              <div key={col.title}>
+                <p className="text-nav uppercase text-cocoa-soft">{col.title}</p>
+                <ul className="mt-5 flex flex-col gap-3">
+                  {col.items.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        className="text-body text-cocoa transition hover:text-blossom-deep"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {openMenu && (
         <div className="border-b border-hairline bg-paper desktop:hidden">
           <nav className="container-ag flex flex-col py-2" aria-label="Menu mobile">
             {mainMenu.map((item) => (
               <Link
-                key={item.href}
+                key={item.label}
                 href={item.href}
                 className="flex h-14 items-center border-b border-hairline font-display text-heading-2 text-cocoa"
               >
                 {item.label}
               </Link>
             ))}
-            <div className="flex flex-col gap-4 py-5">
-              {docsMenu.map((item) => (
+
+            <div className="flex flex-col gap-6 py-6">
+              {columns.map((col) => (
+                <div key={col.title}>
+                  <p className="text-nav uppercase text-cocoa-soft">{col.title}</p>
+                  <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
+                    {col.items.map((item) => (
+                      <li key={item.href}>
+                        <Link href={item.href} className="text-body-sm text-cocoa">
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col gap-3 border-t border-hairline py-5">
+              {secondaryMenu.map((item) => (
                 <Link key={item.href} href={item.href} className="text-nav uppercase text-cocoa-soft">
                   {item.label}
                 </Link>
               ))}
             </div>
+
             <div className="flex items-center justify-between border-t border-hairline py-5">
               <Logo size="sm" />
               <span className="font-display text-body italic text-blossom-deep">{site.tagline}</span>

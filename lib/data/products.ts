@@ -7,6 +7,41 @@
 
 export type ProductCategory = "face-care" | "body-care" | "fragrance" | "decorative";
 
+/** Masalah kulit yang dijawab produk — dipakai filter "Shop by concern". */
+export type ConcernId =
+  | "kusam"
+  | "noda"
+  | "kering"
+  | "barrier"
+  | "pori"
+  | "merata"
+  | "makeup";
+
+export const concerns: { id: ConcernId; label: string }[] = [
+  { id: "kusam", label: "Kulit kusam" },
+  { id: "noda", label: "Noda hitam & bekas" },
+  { id: "kering", label: "Kulit kering" },
+  { id: "barrier", label: "Barrier lemah" },
+  { id: "pori", label: "Pori & tekstur" },
+  { id: "merata", label: "Warna kulit belum merata" },
+  { id: "makeup", label: "Tampil rapi seharian" },
+];
+
+/**
+ * Filter kandungan. `match` dicocokkan dengan nama bahan di daftar komposisi
+ * produk, jadi tidak ada klaim kandungan yang tidak tertulis di data produk.
+ */
+export const ingredientFilters: { id: string; label: string; match: string }[] = [
+  { id: "pdrn", label: "PDRN", match: "pdrn" },
+  { id: "alpha-arbutin", label: "Alpha Arbutin", match: "alpha arbutin" },
+  { id: "niacinamide", label: "Niacinamide", match: "niacinamide" },
+  { id: "centella", label: "Centella", match: "centella" },
+  { id: "licorice", label: "Licorice", match: "licorice" },
+  { id: "hyaluronic-acid", label: "Hyaluronic Acid", match: "hyaluronic" },
+  { id: "ceramide", label: "Ceramide", match: "ceramide" },
+  { id: "kojic-acid", label: "Kojic Acid", match: "kojic" },
+];
+
 export type Ingredient = { name: string; desc: string; pct?: string };
 export type Benefit = { title: string; desc: string };
 export type Claim = { value: string; label: string };
@@ -38,6 +73,7 @@ export type Product = {
   claimNote?: string;
   howToUse: string[];
   shades?: Shade[];
+  concerns: ConcernId[];
   rating: number;
   reviewCount: number;
   bestSeller?: boolean;
@@ -108,6 +144,7 @@ export const products: Product[] = [
       "Busakan lalu pijat lembut ke seluruh wajah, hindari area mata.",
       "Bilas sampai bersih, lanjutkan dengan essence toner.",
     ],
+    concerns: ["barrier", "kering"],
     rating: 0,
     reviewCount: 0,
     isNew: true,
@@ -149,6 +186,7 @@ export const products: Product[] = [
       "Tuang 2–3 pump ke telapak tangan, tepuk lembut ke seluruh wajah.",
       "Lanjutkan dengan serum dan pelembap.",
     ],
+    concerns: ["kering", "barrier", "merata"],
     rating: 0,
     reviewCount: 0,
     isNew: true,
@@ -188,6 +226,7 @@ export const products: Product[] = [
       "Teteskan 3–4 tetes, ratakan ke seluruh wajah.",
       "Pagi hari, tutup dengan sunscreen.",
     ],
+    concerns: ["noda", "merata", "barrier"],
     rating: 0,
     reviewCount: 0,
     isNew: true,
@@ -234,6 +273,7 @@ export const products: Product[] = [
       "Usap lembut ke seluruh tubuh sampai berbusa.",
       "Bilas sampai bersih, lanjutkan dengan body lotion.",
     ],
+    concerns: ["kusam", "kering"],
     rating: 4.8,
     reviewCount: 214,
     bestSeller: true,
@@ -277,6 +317,7 @@ export const products: Product[] = [
       "Ratakan ke seluruh tubuh, fokus ke area yang kering.",
       "Ulangi pagi dan malam untuk hasil optimal.",
     ],
+    concerns: ["kusam", "kering", "merata"],
     rating: 4.9,
     reviewCount: 178,
     bestSeller: true,
@@ -316,6 +357,7 @@ export const products: Product[] = [
       "Ratakan ke tubuh, diamkan sebentar, lalu bilas.",
       "Pakai 1–2 kali sehari.",
     ],
+    concerns: ["kusam", "noda"],
     rating: 4.7,
     reviewCount: 132,
   },
@@ -360,6 +402,7 @@ export const products: Product[] = [
       "Usap merata sampai meresap, sebelum body lotion.",
       "Pakai malam hari untuk hasil paling terasa.",
     ],
+    concerns: ["noda", "merata", "pori"],
     rating: 4.9,
     reviewCount: 96,
     isNew: true,
@@ -398,6 +441,7 @@ export const products: Product[] = [
       "Jangan digosok agar struktur wanginya tetap utuh.",
       "Simpan di tempat sejuk dan jauh dari sinar matahari.",
     ],
+    concerns: [],
     rating: 4.8,
     reviewCount: 74,
   },
@@ -435,6 +479,7 @@ export const products: Product[] = [
       "Jangan digosok agar struktur wanginya tetap utuh.",
       "Simpan di tempat sejuk dan jauh dari sinar matahari.",
     ],
+    concerns: [],
     rating: 4.8,
     reviewCount: 68,
   },
@@ -478,6 +523,7 @@ export const products: Product[] = [
       { name: "Glaze Nude", hex: "#C98A85" },
       { name: "Fairy Pink", hex: "#B32B4E" },
     ],
+    concerns: ["makeup"],
     rating: 4.7,
     reviewCount: 156,
     bestSeller: true,
@@ -518,6 +564,7 @@ export const products: Product[] = [
       { name: "Fairy Pink", hex: "#B32B4E" },
       { name: "Glaze Nude", hex: "#C98A85" },
     ],
+    concerns: ["makeup"],
     rating: 4.8,
     reviewCount: 143,
   },
@@ -557,6 +604,7 @@ export const products: Product[] = [
       { name: "Silk Nude Whisper", hex: "#B5714F" },
       { name: "Cherry Muse", hex: "#8E1B25" },
     ],
+    concerns: ["makeup"],
     rating: 4.7,
     reviewCount: 121,
   },
@@ -596,6 +644,7 @@ export const products: Product[] = [
       { name: "Cherry Muse", hex: "#8E1B25" },
       { name: "Silk Nude Whisper", hex: "#B5714F" },
     ],
+    concerns: ["makeup"],
     rating: 4.9,
     reviewCount: 187,
     bestSeller: true,
@@ -637,6 +686,7 @@ export const products: Product[] = [
       { name: "Shade Pearl", hex: "#F0D3BA" },
       { name: "Deep Skin Tone", hex: "#C99270" },
     ],
+    concerns: ["makeup", "merata"],
     rating: 4.8,
     reviewCount: 109,
   },
@@ -677,6 +727,7 @@ export const products: Product[] = [
       { name: "Deep Skin Tone", hex: "#C99270" },
       { name: "Shade Pearl", hex: "#F0D3BA" },
     ],
+    concerns: ["makeup", "merata"],
     rating: 4.8,
     reviewCount: 87,
   },
@@ -687,6 +738,11 @@ export type PricedProduct = Product & { price: number };
 
 export function pricedProducts(): PricedProduct[] {
   return products.filter((p): p is PricedProduct => p.price !== null);
+}
+
+/** Tipe produk unik, urut sesuai urutan katalog. */
+export function productTypes(): string[] {
+  return [...new Set(products.map((p) => p.type))];
 }
 
 export function getProduct(slug: string) {

@@ -27,6 +27,48 @@ routes.sort(key=len, reverse=True)  # rute terpanjang dulu agar tidak saling tim
 
 HEAD_SHIM = """<script>
 window.__NEXT_ASSET_BASE__="{prefix}_next/";
+window.__AG_BASE__="{prefix}";
+/* Halaman yang dirender di sisi klien (mis. katalog yang membaca query string)
+   melahirkan tautan dan gambar berpath absolut, yang tidak tersentuh perbaikan
+   saat build. Di sini path itu dibuat relatif begitu elemennya muncul. */
+(function () {{
+  var base = window.__AG_BASE__;
+  if (!base) return;
+  function toFile(rel) {{
+    /* Hosting statis belum tentu melayani indeks direktori, jadi ditulis eksplisit */
+    var q = rel.indexOf("?");
+    var path = q === -1 ? rel : rel.slice(0, q);
+    var rest = q === -1 ? "" : rel.slice(q);
+    if (!path) path = "index.html";
+    else if (path.charAt(path.length - 1) === "/") path += "index.html";
+    else if (!/\.[a-z0-9]+$/i.test(path)) path += "/index.html";
+    return path + rest;
+  }}
+  function fix(el) {{
+    if (!el || !el.getAttribute) return;
+    ["src", "href"].forEach(function (attr) {{
+      var v = el.getAttribute(attr);
+      if (!v || v.charAt(0) !== "/" || v.charAt(1) === "/") return;
+      var rel = v.slice(1);
+      el.setAttribute(attr, base + (attr === "href" && el.tagName === "A" ? toFile(rel) : rel));
+    }});
+  }}
+  new MutationObserver(function (muts) {{
+    muts.forEach(function (m) {{
+      if (m.type === "attributes") return fix(m.target);
+      m.addedNodes && Array.prototype.forEach.call(m.addedNodes, function (n) {{
+        if (n.nodeType !== 1) return;
+        fix(n);
+        n.querySelectorAll && Array.prototype.forEach.call(n.querySelectorAll("[src],[href]"), fix);
+      }});
+    }});
+  }}).observe(document.documentElement, {{
+    subtree: true,
+    childList: true,
+    attributes: true,
+    attributeFilter: ["src", "href"],
+  }});
+}})();
 /* Preview statis: prefetch RSC tidak punya endpoint di hosting statis. */
 (function () {{
   var f = window.fetch;
@@ -46,6 +88,17 @@ document.addEventListener('click', function (e) {
   if (!a || a.target === '_blank') return;
   var href = a.getAttribute('href');
   if (!href || /^(https?:|mailto:|tel:|#)/.test(href)) return;
+  if (href.charAt(0) === '/') {
+    /* Cadangan bila ada tautan absolut yang lolos dari pengamat di atas */
+    var rel = href.replace(/^\/+/, '');
+    var q = rel.indexOf('?');
+    var path = q === -1 ? rel : rel.slice(0, q);
+    var rest = q === -1 ? '' : rel.slice(q);
+    if (!path) path = 'index.html';
+    else if (path.charAt(path.length - 1) === '/') path += 'index.html';
+    else if (!/\.[a-z0-9]+$/i.test(path)) path += '/index.html';
+    href = (window.__AG_BASE__ || '') + path + rest;
+  }
   e.preventDefault();
   e.stopPropagation();
   window.location.href = href;
@@ -72,7 +125,7 @@ def rewrite_html(path: pathlib.Path) -> None:
         s = s.replace(f'"/{f}', f'"{prefix}{f}').replace(f'\\"/{f}', f'\\"{prefix}{f}')
 
     # 3. Basis aset + shim fetch, dipasang paling awal di <head>
-    if "__NEXT_ASSET_BASE__" not in s:
+    if "__AG_BASE__" not in s:
         s = s.replace("<head>", "<head>" + HEAD_SHIM.format(prefix=prefix), 1)
 
     # 4. Polyfill legacy hanya dimuat lewat nomodule (diabaikan browser modern) dan

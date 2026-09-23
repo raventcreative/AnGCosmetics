@@ -1,11 +1,19 @@
 "use client";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { SectionHeading } from "@/components/layout/SectionHeading";
 import { ProductGrid } from "@/components/commerce/ProductCard";
 import { Pagination } from "@/components/ui/Pagination";
 import { Input } from "@/components/ui/Input";
-import { categories, products, type ProductCategory } from "@/lib/data/products";
+import {
+  categories,
+  concerns,
+  ingredientFilters,
+  products,
+  type ConcernId,
+  type ProductCategory,
+} from "@/lib/data/products";
 import { cn } from "@/lib/utils";
 
 const PER_PAGE = 8;
@@ -16,16 +24,62 @@ const sorts = [
   { id: "termahal", label: "Harga tertinggi" },
 ] as const;
 
+/**
+ * Katalog dikendalikan oleh URL: kategori, tipe, concern, kandungan, dan koleksi
+ * dibaca dari query string, sehingga tautan dari mega menu benar-benar memfilter
+ * dan bisa dibagikan. Pencarian dan urutan tetap state lokal.
+ */
 export function ProductCatalog() {
-  const [category, setCategory] = useState<ProductCategory | "semua">("semua");
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
+
+  const category = (params.get("kategori") as ProductCategory | null) ?? "semua";
+  const tipe = params.get("tipe");
+  const concern = params.get("concern") as ConcernId | null;
+  const kandungan = params.get("kandungan");
+  const koleksi = params.get("koleksi");
+
   const [sort, setSort] = useState<(typeof sorts)[number]["id"]>("populer");
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
 
+  function setParam(key: string, value: string | null) {
+    const next = new URLSearchParams(params.toString());
+    if (!value || value === "semua") next.delete(key);
+    else next.set(key, value);
+    const qs = next.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    setPage(1);
+  }
+
+  const activeFilters = [
+    tipe && { key: "tipe", label: tipe },
+    concern && {
+      key: "concern",
+      label: concerns.find((c) => c.id === concern)?.label ?? concern,
+    },
+    kandungan && {
+      key: "kandungan",
+      label: ingredientFilters.find((i) => i.id === kandungan)?.label ?? kandungan,
+    },
+    koleksi === "best-seller" && { key: "koleksi", label: "Best seller" },
+  ].filter(Boolean) as { key: string; label: string }[];
+
   const filtered = useMemo(() => {
-    let list = products.filter((p) =>
-      category === "semua" ? true : p.category === category,
-    );
+    let list = products.filter((p) => (category === "semua" ? true : p.category === category));
+
+    if (tipe) list = list.filter((p) => p.type === tipe);
+    if (concern) list = list.filter((p) => p.concerns.includes(concern));
+    if (koleksi === "best-seller") list = list.filter((p) => p.bestSeller);
+    if (kandungan) {
+      const needle = ingredientFilters.find((i) => i.id === kandungan)?.match;
+      if (needle) {
+        list = list.filter((p) =>
+          p.ingredients.some((ing) => ing.name.toLowerCase().includes(needle)),
+        );
+      }
+    }
     if (query.trim()) {
       const q = query.toLowerCase();
       list = list.filter(
@@ -35,14 +89,14 @@ export function ProductCatalog() {
           p.summary.toLowerCase().includes(q),
       );
     }
+
     // Produk tanpa harga selalu di belakang, apa pun arah urutannya
     const price = (v: number | null) => (v === null ? Number.POSITIVE_INFINITY : v);
     if (sort === "termurah") list = [...list].sort((a, b) => price(a.price) - price(b.price));
-    if (sort === "termahal")
-      list = [...list].sort((a, b) => (b.price ?? -1) - (a.price ?? -1));
+    if (sort === "termahal") list = [...list].sort((a, b) => (b.price ?? -1) - (a.price ?? -1));
     if (sort === "populer") list = [...list].sort((a, b) => b.reviewCount - a.reviewCount);
     return list;
-  }, [category, query, sort]);
+  }, [category, tipe, concern, kandungan, koleksi, query, sort]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
   const current = Math.min(page, totalPages);
@@ -64,10 +118,7 @@ export function ProductCatalog() {
               (chip) => (
                 <button
                   key={chip.id}
-                  onClick={() => {
-                    setCategory(chip.id as ProductCategory | "semua");
-                    setPage(1);
-                  }}
+                  onClick={() => setParam("kategori", chip.id)}
                   className={cn(
                     "h-11 border px-5 text-body-sm font-semibold transition",
                     category === chip.id
@@ -114,6 +165,23 @@ export function ProductCatalog() {
           </div>
         </div>
 
+        {activeFilters.length > 0 && (
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-nav uppercase text-cocoa-soft">Filter aktif</span>
+            {activeFilters.map((f) => (
+              <button
+                key={f.key}
+                onClick={() => setParam(f.key, null)}
+                className="flex items-center gap-2 rounded-full bg-cotton-pink/50 px-4 py-1.5 text-body-sm text-cocoa transition hover:bg-cotton-pink"
+              >
+                {f.label}
+                <span aria-hidden="true">×</span>
+                <span className="sr-only">Hapus filter</span>
+              </button>
+            ))}
+          </div>
+        )}
+
         <p className="text-body-sm text-cocoa-soft">
           Menampilkan {visible.length} dari {filtered.length} produk
         </p>
@@ -124,14 +192,12 @@ export function ProductCatalog() {
           <div className="border border-hairline bg-paper p-8 text-center">
             <p className="text-title text-cocoa">Belum ada produk yang cocok</p>
             <p className="mt-2 text-body-sm text-cocoa-soft">
-              Coba kata kunci lain, atau reset filter kategorinya, bestie.
+              Coba kata kunci lain, atau hapus salah satu filternya, bestie.
             </p>
           </div>
         )}
 
-        {totalPages > 1 && (
-          <Pagination page={current} totalPages={totalPages} onChange={setPage} />
-        )}
+        {totalPages > 1 && <Pagination page={current} totalPages={totalPages} onChange={setPage} />}
       </div>
     </div>
   );
