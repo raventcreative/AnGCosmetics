@@ -1,6 +1,6 @@
 import { chromium } from 'playwright-core';
 const BASE = 'http://localhost:3211/preview/abc123/';
-const S = process.env.SHOTS;
+const S = process.env.SHOTS; // opsional: folder screenshot
 const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
 const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
 const p = await ctx.newPage();
@@ -42,6 +42,6 @@ const after = await btn.getAttribute('aria-expanded');
 const answer = await p.locator('text=Rangkaian body care kami diformulasikan lembut').count();
 console.log('accordion    :', before, '→', after, '| jawaban tampil:', answer);
 console.log('react        :', after === 'true' && answer > 0 ? 'HIDUP' : 'MATI');
-await p.screenshot({ path: `${S}/preview-home.png` });
+if (S) await p.screenshot({ path: `${S}/preview-home.png` });
 await b.close();
 console.log(bad.length ? 'ISSUES:\n' + [...new Set(bad)].slice(0, 10).join('\n') : 'no console/network errors');
